@@ -9,6 +9,10 @@ input:
   sku_column: "SKU"
   country: "德国"
   expected_sha256: "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6"
+  calendar:
+    week_start: monday
+    merge_same_iso_week_fragments: true
+    minimum_covered_days: 7
 
 cleaning_v2:
   zero_run_min: 2
@@ -45,6 +49,10 @@ clustering:
     replace: false
   kmeans_robustness:
     n_init: 100
+  operational_selection:
+    rule: benchmark_dominance_then_parsimony
+    benchmark_features: [ADI, CV2, nonzero_mean, acf1]
+    benchmark_k: 2
 
 forecast:
   total_backtest_weeks: 48
