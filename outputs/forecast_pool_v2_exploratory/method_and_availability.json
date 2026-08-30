@@ -1,0 +1,71 @@
+{
+  "status": "exploratory_after_v1_holdout_was_viewed",
+  "protocol": "protocol/forecast_pool_v2_exploratory_protocol.md",
+  "source_sha256": "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6",
+  "feature_names": [
+    "ADI",
+    "CV2",
+    "std_sales"
+  ],
+  "k": 2,
+  "origins": [
+    "2025-09-01",
+    "2025-10-27",
+    "2025-12-22",
+    "2026-02-16",
+    "2026-04-13",
+    "2026-06-08"
+  ],
+  "models": [
+    "MA4_proxy",
+    "Naive",
+    "SES",
+    "ADIDA2",
+    "SBA"
+  ],
+  "pools": {
+    "1": [
+      "MA4_proxy",
+      "Naive",
+      "SES",
+      "ADIDA2"
+    ],
+    "2": [
+      "MA4_proxy",
+      "Naive",
+      "ADIDA2",
+      "SBA"
+    ]
+  },
+  "holdout_native_sku_records": {
+    "MA4_proxy": 147,
+    "Naive": 147,
+    "SES": 147,
+    "ADIDA2": 147,
+    "SBA": 129
+  },
+  "holdout_native_valid_mase": {
+    "MA4_proxy": 131,
+    "Naive": 131,
+    "SES": 131,
+    "ADIDA2": 131,
+    "SBA": 129
+  },
+  "holdout_common_mase_skus": 129,
+  "reconciliation": {
+    "status": "passed",
+    "v1_rows": 4655,
+    "v2_core_rows": 4655,
+    "unmatched_rows": 0,
+    "maximum_absolute_differences": {
+      "cluster": 0.0,
+      "mase_scale": 1.7763568394002505e-15,
+      "mase": 7.105427357601002e-15,
+      "mae": 3.552713678800501e-15,
+      "actual_sum": 0.0,
+      "forecast_sum": 2.842170943040401e-14,
+      "abs_error_sum": 2.842170943040401e-14,
+      "signed_error_sum": 2.842170943040401e-14
+    }
+  }
+}
