@@ -1,0 +1,74 @@
+{
+  "source_file": "01_原始数据/德国Amazon_SKU周度数据_原始合并版_未清洗 (1).xlsx",
+  "sha256": "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6",
+  "sheet_names": [
+    "2024-2025_销量",
+    "2026_销量"
+  ],
+  "sheet_details": [
+    {
+      "sheet": "2024-2025_销量",
+      "rows": 195,
+      "columns": 113,
+      "weekly_columns": 105,
+      "unique_skus": 195,
+      "duplicate_sku_rows": 0,
+      "period_start": "2024-01-01",
+      "period_end": "2025-12-31"
+    },
+    {
+      "sheet": "2026_销量",
+      "rows": 147,
+      "columns": 39,
+      "weekly_columns": 31,
+      "unique_skus": 147,
+      "duplicate_sku_rows": 0,
+      "period_start": "2026-01-01",
+      "period_end": "2026-08-02"
+    }
+  ],
+  "raw_cells_at_sku_period_grain": 25032,
+  "unique_skus": 242,
+  "unique_period_fragments": 136,
+  "consolidated_sku_weeks": 24932,
+  "complete_sku_weeks": 24790,
+  "incomplete_sku_weeks": 142,
+  "split_week_sku_weeks": 100,
+  "invalid_numeric_cells": 0,
+  "missing_sales_cells": 0,
+  "negative_sales_cells": 0,
+  "duplicate_source_sku_period_rows": 0,
+  "duplicate_consolidated_sku_weeks": 0,
+  "week_start_min": "2024-01-01",
+  "week_start_max": "2026-07-27",
+  "sales_sum_complete_weeks": 30248.0,
+  "blockers": [],
+  "expected_sha256_match": true,
+  "python_version": "3.12.13",
+  "numpy_version": "2.3.5",
+  "pandas_version": "2.2.3",
+  "random_seed": 42,
+  "v2": {
+    "candidate_intervals": 529,
+    "corrected_intervals": 43,
+    "corrected_skus": 30,
+    "corrected_sku_weeks": 168,
+    "corrected_share": 0.006776926179911254,
+    "raw_total": 30248.0,
+    "v2_total": 30943.75,
+    "absolute_change": 695.75,
+    "relative_change": 0.023001520761703254
+  },
+  "sample_counts": {
+    "positive_weeks_ge_2": 230,
+    "positive_weeks_ge_5": 197,
+    "positive_weeks_ge_10": 148
+  },
+  "feature_identities": {
+    "rows_checked": 242,
+    "max_mean_identity_error": 1.7763568394002505e-15,
+    "max_adi_identity_error": 3.694822225952521e-13,
+    "mean_identity_failures": 0,
+    "adi_identity_failures": 0
+  }
+}

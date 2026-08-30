@@ -1,0 +1,10 @@
+{
+  "first_sheet": "2024-2025_销量",
+  "second_sheet": "2026_销量",
+  "first_sheet_skus": 195,
+  "second_sheet_skus": 147,
+  "overlap_skus": 100,
+  "first_only_skus": 95,
+  "second_only_skus": 47,
+  "union_skus": 242
+}
