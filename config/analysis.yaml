@@ -30,10 +30,11 @@ samples:
 
 features:
   anchors: [ADI, CV2]
-  confirmatory_optional: [mean_sales, median_sales, std_sales, nonzero_mean, acf1]
+  confirmatory_optional: [mean_sales, std_sales, nonzero_mean, acf1]
+  sensitivity_optional: [mean_sales, median_sales, std_sales, nonzero_mean, acf1]
   mutually_exclusive:
     - [mean_sales, nonzero_mean]
-  profile_only: [zero_ratio]
+  profile_only: [zero_ratio, median_sales]
   exploratory: [trend_coef, seasonality_idx, peak_ratio, promo_weight_ratio]
 
 preprocessing:
