@@ -54,6 +54,13 @@ clustering:
     rule: benchmark_dominance_then_parsimony
     benchmark_features: [ADI, CV2, nonzero_mean, acf1]
     benchmark_k: 2
+  k3_acceptance:
+    minimum_cluster_jaccard_median: 0.75
+    minimum_cluster_size: 10
+    minimum_cluster_share: 0.05
+    minimum_profile_effect_size: 0.50
+    minimum_raw_v2_ari: 0.80
+    minimum_main_strict_ari: 0.70
 
 forecast:
   total_backtest_weeks: 48
@@ -65,6 +72,13 @@ forecast:
   adida_aggregation_weeks: 2
   adida_sensitivity_weeks: [4, 6, 8]
   conditional_croston_enabled: true
+  routing:
+    loss: mae
+    minimum_valid_origins: 3
+    minimum_winning_origins: 3
+    complex_min_relative_improvement: 0.05
+    simple_tie_relative_gap: 0.02
+    impact_quantile: 0.50
 
 evaluation:
   metrics: [mean_mase, median_mase, mase_lt_1_share, mae, wape, volume_weighted_wape, bias]
