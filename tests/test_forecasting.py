@@ -4,7 +4,12 @@ import numpy as np
 import pandas as pd
 
 from src.evaluation import evaluate_forecast
-from src.forecasting import aggregate_fixed_calendar, forecast_adida, mase_scale
+from src.forecasting import (
+    aggregate_fixed_calendar,
+    forecast_adida,
+    forecast_sba,
+    mase_scale,
+)
 
 
 class ForecastingTests(unittest.TestCase):
@@ -51,6 +56,20 @@ class ForecastingTests(unittest.TestCase):
         metrics = evaluate_forecast(np.ones(2), np.ones(2), scale)
         self.assertTrue(np.isnan(metrics["mase"]))
         self.assertEqual(metrics["mae"], 0.0)
+
+    def test_sba_returns_constant_nonnegative_weekly_rate(self) -> None:
+        values = np.asarray([0, 4, 0, 4, 0, 4, 0, 4], dtype=float)
+        forecast, fit = forecast_sba(values, 8)
+        self.assertEqual(len(forecast), 8)
+        self.assertTrue(np.all(forecast >= 0))
+        np.testing.assert_allclose(forecast, forecast[0])
+        self.assertEqual(fit.n_positive, 4)
+        self.assertGreaterEqual(fit.alpha, 0.0)
+        self.assertLessEqual(fit.alpha, 1.0)
+
+    def test_sba_requires_two_positive_events(self) -> None:
+        with self.assertRaises(ValueError):
+            forecast_sba(np.asarray([0, 0, 5, 0], dtype=float), 8)
 
 
 if __name__ == "__main__":

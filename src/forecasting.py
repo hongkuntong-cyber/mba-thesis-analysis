@@ -14,6 +14,16 @@ class SESFit:
     sse: float
 
 
+@dataclass(frozen=True)
+class SBAFit:
+    alpha: float
+    demand_level: float
+    interval_level: float
+    weekly_rate: float
+    sse: float
+    n_positive: int
+
+
 def fit_ses(values: np.ndarray) -> SESFit:
     y = np.asarray(values, dtype=float)
     if len(y) == 0 or not np.isfinite(y).all():
@@ -58,6 +68,64 @@ def forecast_ma4(values: np.ndarray, horizon: int) -> np.ndarray:
 def forecast_ses(values: np.ndarray, horizon: int) -> tuple[np.ndarray, SESFit]:
     fit = fit_ses(np.asarray(values, dtype=float))
     return np.repeat(fit.level, horizon), fit
+
+
+def fit_sba(values: np.ndarray) -> SBAFit:
+    """Fit the Syntetos-Boylan approximation with one shared smoothing factor.
+
+    Demand size and inter-demand intervals are smoothed separately. The
+    one-step weekly squared error is minimized on the visible training series,
+    and the bias correction ``1 - alpha / 2`` is applied to the final rate.
+    """
+    y = np.asarray(values, dtype=float)
+    if len(y) == 0 or not np.isfinite(y).all() or np.any(y < 0):
+        raise ValueError("SBA requires a finite, non-negative, non-empty series")
+    positive_indices = np.flatnonzero(y > 0)
+    if len(positive_indices) < 2:
+        raise ValueError("SBA requires at least two positive demand events")
+
+    first_positive = int(positive_indices[0])
+
+    def evaluate(alpha: float) -> tuple[float, float, float, float]:
+        demand_level = float(y[first_positive])
+        interval_level = float(first_positive + 1)
+        last_positive = first_positive
+        weekly_rate = (1.0 - alpha / 2.0) * demand_level / interval_level
+        squared_errors = 0.0
+        for position in range(first_positive + 1, len(y)):
+            error = float(y[position]) - weekly_rate
+            squared_errors += error * error
+            if y[position] > 0:
+                interval = float(position - last_positive)
+                demand_level = alpha * float(y[position]) + (1.0 - alpha) * demand_level
+                interval_level = alpha * interval + (1.0 - alpha) * interval_level
+                last_positive = position
+                weekly_rate = (
+                    (1.0 - alpha / 2.0) * demand_level / max(interval_level, 1e-12)
+                )
+        return squared_errors, demand_level, interval_level, weekly_rate
+
+    result = minimize_scalar(
+        lambda alpha: evaluate(float(alpha))[0],
+        bounds=(1e-6, 1.0),
+        method="bounded",
+        options={"xatol": 1e-8},
+    )
+    alpha = float(result.x)
+    sse, demand_level, interval_level, weekly_rate = evaluate(alpha)
+    return SBAFit(
+        alpha=alpha,
+        demand_level=max(0.0, float(demand_level)),
+        interval_level=max(float(interval_level), 1e-12),
+        weekly_rate=max(0.0, float(weekly_rate)),
+        sse=float(sse),
+        n_positive=int(len(positive_indices)),
+    )
+
+
+def forecast_sba(values: np.ndarray, horizon: int) -> tuple[np.ndarray, SBAFit]:
+    fit = fit_sba(np.asarray(values, dtype=float))
+    return np.repeat(fit.weekly_rate, horizon), fit
 
 
 def aggregate_fixed_calendar(
@@ -112,6 +180,7 @@ def forecast_core_models(
     horizon: int,
     calendar_anchor: pd.Timestamp,
     adida_aggregation_weeks: int = 2,
+    include_sba: bool = False,
 ) -> tuple[dict[str, np.ndarray], dict[str, float]]:
     values = np.asarray(train_values, dtype=float)
     forecasts: dict[str, np.ndarray] = {
@@ -136,6 +205,16 @@ def forecast_core_models(
         # Other core models remain evaluable when a newly observed SKU lacks
         # two complete aggregation blocks. Availability is reported upstream.
         pass
+    if include_sba:
+        parameters["sba_alpha"] = np.nan
+        try:
+            sba_forecast, sba_fit = forecast_sba(values, horizon)
+            forecasts["SBA"] = sba_forecast
+            parameters["sba_alpha"] = sba_fit.alpha
+        except ValueError:
+            # SBA remains unavailable when fewer than two positive demand
+            # events are visible at the forecast origin.
+            pass
     return forecasts, parameters
 
 

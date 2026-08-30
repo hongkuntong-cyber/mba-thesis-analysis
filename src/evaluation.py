@@ -102,7 +102,14 @@ def paired_bootstrap_difference(
 
 def model_wins(predictions: pd.DataFrame, loss_column: str = "mae") -> pd.DataFrame:
     """Count per-SKU and per-origin winners, breaking ties by maintenance order."""
-    priority = {"MA4_proxy": 0, "Naive": 1, "SES": 2, "ADIDA2": 3, "Zero": 4}
+    priority = {
+        "MA4_proxy": 0,
+        "Naive": 1,
+        "SES": 2,
+        "ADIDA2": 3,
+        "SBA": 4,
+        "Zero": 5,
+    }
     frame = predictions.copy()
     frame["priority"] = frame["model"].map(priority).fillna(99)
     winners = (

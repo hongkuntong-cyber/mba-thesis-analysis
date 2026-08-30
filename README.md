@@ -56,6 +56,15 @@ python -m src.pipeline --config config/analysis.yaml --reuse-existing
 pytest -q
 ```
 
+探索性比较簇专属轻量算法池（新增 SBA，不覆盖 V1 正式结论）：
+
+```bash
+python -m src.forecast_pool_v2 --config config/analysis.yaml
+python -m src.validate_forecast_pool_v2
+```
+
+其方法在运行前冻结于 `protocol/forecast_pool_v2_exploratory_protocol.md`。由于 V1 的最终窗口已经查看，V2 输出只能作为探索性证据，不能重新称为独立确认性留出。
+
 端到端正式运行会执行 500 次 80% 无放回子样本稳定性计算，耗时明显高于测试。原始文件只读，正式输出写入 `outputs/` 和 `reports/`。
 
 ## 工程结构
@@ -94,4 +103,3 @@ reports/                 最终报告、实施矩阵与图表索引
 ## 数据与解释限制
 
 当前数据只包含销量，没有库存、缺货、采购提前期、MOQ、服务水平、持有成本、采购价或毛利。因此结果只支持预测误差和实施复杂度判断，不能外推为利润、库存成本或缺货成本改善。2024–2025 与 2026 的 SKU 宇宙也存在明显断裂，相关排除与可评价样本数均在报告中单独披露。
-
