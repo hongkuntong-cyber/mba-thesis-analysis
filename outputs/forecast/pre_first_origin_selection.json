@@ -1,0 +1,55 @@
+{
+  "first_origin": "2025-09-01",
+  "origins": [
+    "2025-09-01",
+    "2025-10-27",
+    "2025-12-22",
+    "2026-02-16",
+    "2026-04-13",
+    "2026-06-08"
+  ],
+  "training_week_max": "2025-08-25",
+  "training_rows": 16965,
+  "training_unique_skus": 195,
+  "eligible_cluster_skus": 130,
+  "v2": {
+    "candidate_intervals": 230,
+    "corrected_intervals": 16,
+    "corrected_skus": 12,
+    "corrected_sku_weeks": 63,
+    "corrected_share": 0.003713527851458886,
+    "raw_total": 13583.0,
+    "v2_total": 13821.5,
+    "absolute_change": 238.5,
+    "relative_change": 0.01755871309725392
+  },
+  "feature_names": [
+    "ADI",
+    "CV2",
+    "std_sales"
+  ],
+  "k": 2,
+  "reason": "Selected after the frozen cluster-level stability gate, then by benchmark dominance and parsimony.",
+  "row": {
+    "feature_set": "ADI+CV2+std_sales",
+    "n_features": 3,
+    "k": 2,
+    "n_skus": 130,
+    "valid": true,
+    "error": NaN,
+    "silhouette": 0.4196136245003586,
+    "calinski_harabasz": 136.59829995753776,
+    "min_cluster_size": 60,
+    "max_cluster_size": 70,
+    "cluster_sizes": "1:70;2:60",
+    "stability_ari_mean": 0.7504756535939068,
+    "stability_ari_median": 0.8151509277942245,
+    "stability_ari_p10": 0.4224739575685173,
+    "stability_ari_p90": 1.0,
+    "cluster_jaccard_medians": "{\"1\": 0.9090909090909091, \"2\": 0.9074074074074074}",
+    "pareto": true
+  },
+  "elapsed_seconds": 237.31855671199992,
+  "selection_correction": "Protocol amendment 1.4; no stability grid was rerun.",
+  "unconstrained_selection_file": "pre_first_origin_selection_unconstrained.json"
+}

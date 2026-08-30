@@ -1,0 +1,5 @@
+management_path,routed_model,n_skus,actual_volume,enterprise_abs_error,layered_abs_error,net_abs_error_improvement
+人工复核,MA4_proxy,101,2738.0,2057.5,2057.5,0.0
+规则管理,Zero,38,293.0,285.5,293.0,-7.5
+预测管理,MA4_proxy,3,71.0,39.0,39.0,0.0
+预测管理,Naive,5,57.0,69.5,57.0,12.5

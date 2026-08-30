@@ -1,0 +1,52 @@
+{
+  "first_origin": "2025-09-01",
+  "origins": [
+    "2025-09-01",
+    "2025-10-27",
+    "2025-12-22",
+    "2026-02-16",
+    "2026-04-13",
+    "2026-06-08"
+  ],
+  "training_week_max": "2025-08-25",
+  "training_rows": 16965,
+  "training_unique_skus": 195,
+  "eligible_cluster_skus": 130,
+  "v2": {
+    "candidate_intervals": 230,
+    "corrected_intervals": 16,
+    "corrected_skus": 12,
+    "corrected_sku_weeks": 63,
+    "corrected_share": 0.003713527851458886,
+    "raw_total": 13583.0,
+    "v2_total": 13821.5,
+    "absolute_change": 238.5,
+    "relative_change": 0.01755871309725392
+  },
+  "feature_names": [
+    "ADI",
+    "CV2"
+  ],
+  "k": 5,
+  "reason": "Selected by pre-registered benchmark-dominance and parsimony rule.",
+  "row": {
+    "feature_set": "ADI+CV2",
+    "n_features": 2,
+    "k": 5,
+    "n_skus": 130,
+    "valid": true,
+    "error": "",
+    "silhouette": 0.3746374633041959,
+    "calinski_harabasz": 115.13596808315293,
+    "min_cluster_size": 12,
+    "max_cluster_size": 38,
+    "cluster_sizes": "1:35;2:12;3:38;4:21;5:24",
+    "stability_ari_mean": 0.5897681998992937,
+    "stability_ari_median": 0.5560370470971381,
+    "stability_ari_p10": 0.45600693712573015,
+    "stability_ari_p90": 0.767178218776328,
+    "cluster_jaccard_medians": "{\"1\": 0.6666666666666666, \"2\": 0.43902439024390244, \"3\": 1.0, \"4\": 0.9, \"5\": 0.6896551724137931}",
+    "pareto": false
+  },
+  "elapsed_seconds": 237.31855671199992
+}

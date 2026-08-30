@@ -1,0 +1,243 @@
+sku,stable,candidate_model,reason,development_actual_volume,unstable_volume_median,management_path,routed_model,candidate_mean_mae,candidate_wins,valid_origins
+BLJZ0001,False,,fewer than three valid development origins,11.0,7.0,人工复核,MA4_proxy,,,
+BLP0001,False,ADIDA2,model ranking not stable enough,216.0,7.0,人工复核,MA4_proxy,4.644585345055107,1.0,5.0
+BLP0002,False,ADIDA2,model ranking not stable enough,71.0,7.0,人工复核,MA4_proxy,1.6135550761644424,0.0,5.0
+BLP0003,False,Naive,model ranking not stable enough,17.0,7.0,人工复核,MA4_proxy,0.425,1.0,5.0
+BLP0004,False,Naive,model ranking not stable enough,9.0,7.0,人工复核,MA4_proxy,0.225,1.0,5.0
+BLP0005,False,,fewer than three valid development origins,2.0,7.0,规则管理,Zero,,,
+BLP0007,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+CBJZ0001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+CFSNT008,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+CLSSLT0003,False,Zero,model ranking not stable enough,13.0,7.0,人工复核,MA4_proxy,0.325,1.0,5.0
+CLSSLT0006,False,Zero,model ranking not stable enough,27.0,7.0,人工复核,MA4_proxy,0.675,1.0,5.0
+CWW0002,False,MA4_proxy,model ranking not stable enough,613.0,7.0,人工复核,MA4_proxy,11.95,2.0,5.0
+DGNTYBV001AMDE,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+DHZXCZP0001,False,Zero,model ranking not stable enough,35.0,7.0,人工复核,MA4_proxy,0.875,2.0,5.0
+DRMJJ0020,False,,fewer than three valid development origins,16.0,7.0,人工复核,MA4_proxy,,,
+DRMJJ0021,False,Naive,model ranking not stable enough,12.0,7.0,人工复核,MA4_proxy,0.3,2.0,5.0
+DRMJJ0022,False,Zero,model ranking not stable enough,52.0,7.0,人工复核,MA4_proxy,1.3,2.0,5.0
+DRMJJ0023,True,Naive,majority winner with required simple-baseline improvement,136.0,7.0,预测管理,Naive,2.45,3.0,5.0
+DRMJJ0024,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+DRMJJ0025,False,Zero,model ranking not stable enough,16.0,7.0,人工复核,MA4_proxy,0.4,1.0,5.0
+DRMJJ0026,False,Naive,model ranking not stable enough,32.0,7.0,人工复核,MA4_proxy,0.8,2.0,5.0
+DRMJJ0027,False,Naive,model ranking not stable enough,14.0,7.0,人工复核,MA4_proxy,0.35,1.0,5.0
+DRMJJ0038,False,,fewer than three valid development origins,9.0,7.0,人工复核,MA4_proxy,,,
+DRMJJ0039,False,,fewer than three valid development origins,7.0,7.0,规则管理,Zero,,,
+ETZP0003,False,Zero,model ranking not stable enough,64.0,7.0,人工复核,MA4_proxy,1.6,2.0,5.0
+ETZP0004,False,Naive,model ranking not stable enough,70.0,7.0,人工复核,MA4_proxy,1.7,0.0,5.0
+FDBLHP0001,False,Naive,model ranking not stable enough,19.0,7.0,人工复核,MA4_proxy,0.475,3.0,5.0
+FDBLP0001,False,Zero,model ranking not stable enough,176.0,7.0,人工复核,MA4_proxy,4.4,2.0,5.0
+FRC0002,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRC0003,False,Zero,model ranking not stable enough,48.0,7.0,人工复核,MA4_proxy,1.2,2.0,5.0
+FRC0010,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRC0011,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0002,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0003,False,,fewer than three valid development origins,1.0,7.0,规则管理,Zero,,,
+FRH0004,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0012,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0028,False,Naive,model ranking not stable enough,7.0,7.0,规则管理,Zero,0.175,2.0,5.0
+FRH0029,False,,fewer than three valid development origins,7.0,7.0,规则管理,Zero,,,
+FRH0031,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0033,False,Zero,model ranking not stable enough,82.0,7.0,人工复核,MA4_proxy,2.05,2.0,5.0
+FRH0034,False,Zero,model ranking not stable enough,34.0,7.0,人工复核,MA4_proxy,0.85,2.0,5.0
+FRH0035,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0036,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0037,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0040,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0042,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0043,False,Zero,model ranking not stable enough,9.0,7.0,人工复核,MA4_proxy,0.225,2.0,5.0
+FRH0044,False,Zero,model ranking not stable enough,19.0,7.0,人工复核,MA4_proxy,0.475,3.0,5.0
+FRH0045,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0046,False,ADIDA2,model ranking not stable enough,204.0,7.0,人工复核,MA4_proxy,3.4226866694987317,0.0,5.0
+FRH0047,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0048,False,SES,model ranking not stable enough,305.0,7.0,人工复核,MA4_proxy,3.218875016515329,1.0,5.0
+FRH0049,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0050,False,Naive,model ranking not stable enough,58.0,7.0,人工复核,MA4_proxy,1.25,2.0,5.0
+FRH0051,False,SES,model ranking not stable enough,132.0,7.0,人工复核,MA4_proxy,1.578007728436446,1.0,5.0
+FRH0052,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0056,False,SES,model ranking not stable enough,423.0,7.0,人工复核,MA4_proxy,4.205202847666366,0.0,5.0
+FRH0056-1,False,Zero,model ranking not stable enough,14.0,7.0,人工复核,MA4_proxy,0.35,0.0,5.0
+FRH0058,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRH0059,False,Naive,model ranking not stable enough,39.0,7.0,人工复核,MA4_proxy,0.975,3.0,5.0
+FRH0064,False,MA4_proxy,model ranking not stable enough,75.0,7.0,人工复核,MA4_proxy,1.725,2.0,5.0
+FRH0065,True,Naive,majority winner with required simple-baseline improvement,43.0,7.0,预测管理,Naive,1.025,3.0,5.0
+FRH0068,False,Naive,model ranking not stable enough,29.0,7.0,人工复核,MA4_proxy,0.625,2.0,5.0
+FRW00011,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRW00023,False,,fewer than three valid development origins,3.0,7.0,规则管理,Zero,,,
+FRW0005,False,ADIDA2,model ranking not stable enough,114.0,7.0,人工复核,MA4_proxy,1.6582859040136342,2.0,5.0
+FRW0006,False,Naive,model ranking not stable enough,213.0,7.0,人工复核,MA4_proxy,2.825,2.0,5.0
+FRW0007,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRW0008,False,Zero,model ranking not stable enough,5.0,7.0,规则管理,Zero,0.125,1.0,5.0
+FRW0009,False,Zero,model ranking not stable enough,32.0,7.0,人工复核,MA4_proxy,0.8,1.0,5.0
+FRW0011,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRW0013,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRW0014,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRW0015,False,Naive,model ranking not stable enough,167.0,7.0,人工复核,MA4_proxy,2.425,1.0,5.0
+FRW0016,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRW0017,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRW0020,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRW0021,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRW0022,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+FRW0023,False,,fewer than three valid development origins,1.0,7.0,规则管理,Zero,,,
+FRW0024,False,MA4_proxy,model ranking not stable enough,83.0,7.0,人工复核,MA4_proxy,1.9625,2.0,5.0
+FRW0025,False,,fewer than three valid development origins,5.0,7.0,规则管理,Zero,,,
+FSTBY001,False,MA4_proxy,model ranking not stable enough,2.0,7.0,规则管理,Zero,0.05,5.0,5.0
+FZGLS0001,False,Naive,model ranking not stable enough,7.0,7.0,规则管理,Zero,0.175,2.0,5.0
+FZGLS0002,False,Naive,model ranking not stable enough,6.0,7.0,规则管理,Zero,0.15,1.0,5.0
+FZLRICBHP0001,False,Zero,model ranking not stable enough,17.0,7.0,人工复核,MA4_proxy,0.425,1.0,5.0
+FZLRJ0001,False,MA4_proxy,model ranking not stable enough,49.0,7.0,人工复核,MA4_proxy,1.2,2.0,5.0
+FZLRJ0001double,False,Naive,model ranking not stable enough,1.0,7.0,规则管理,Zero,0.025,1.0,5.0
+FZLRJ0002,False,ADIDA2,model ranking not stable enough,130.0,7.0,人工复核,MA4_proxy,2.9749924967859944,1.0,5.0
+FZLRJ0002double,False,Naive,model ranking not stable enough,4.0,7.0,规则管理,Zero,0.1,1.0,5.0
+FZLRJ0005,False,,fewer than three valid development origins,13.0,7.0,人工复核,MA4_proxy,,,
+GJMJSLW001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+GJMJSW001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+GJMJWJX001,False,Naive,model ranking not stable enough,383.0,7.0,人工复核,MA4_proxy,8.425,2.0,5.0
+GJMJWJXW001,True,Naive,majority winner with required simple-baseline improvement,613.0,7.0,预测管理,Naive,10.425,3.0,5.0
+GJMUSDW001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+HLGKSLT0001,False,SES,model ranking not stable enough,87.0,7.0,人工复核,MA4_proxy,1.8657310004530516,1.0,5.0
+HSAKSLT0001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+HWZDSKL0001,False,Naive,model ranking not stable enough,39.0,7.0,人工复核,MA4_proxy,0.975,0.0,5.0
+HWZDSKL0002,False,Naive,model ranking not stable enough,5.0,7.0,规则管理,Zero,0.125,4.0,5.0
+HZSN0001,False,SES,model ranking not stable enough,96.0,7.0,人工复核,MA4_proxy,2.3840077095438277,1.0,5.0
+JZJ00011,False,Zero,model ranking not stable enough,65.0,7.0,人工复核,MA4_proxy,1.625,2.0,5.0
+JZJ00012,False,MA4_proxy,model ranking not stable enough,99.0,7.0,人工复核,MA4_proxy,1.8875,2.0,5.0
+JZJ0002,False,SES,model ranking not stable enough,307.0,7.0,人工复核,MA4_proxy,3.3424051845610365,0.0,5.0
+JZJ0003,False,SES,model ranking not stable enough,565.0,7.0,人工复核,MA4_proxy,5.437516829972164,0.0,5.0
+JZJ0004,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+JZJ0005,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+JZJ0008,False,,fewer than three valid development origins,50.0,7.0,人工复核,MA4_proxy,,,
+JZJ0009,False,ADIDA2,model ranking not stable enough,933.0,7.0,人工复核,MA4_proxy,8.277428512759144,2.0,5.0
+JZJ0013,False,ADIDA2,model ranking not stable enough,660.0,7.0,人工复核,MA4_proxy,5.682799320529254,3.0,5.0
+JZJ0014,False,Naive,model ranking not stable enough,6.0,7.0,规则管理,Zero,0.15,4.0,5.0
+JZJ0016,True,Naive,majority winner with required simple-baseline improvement,72.0,7.0,预测管理,Naive,1.5,3.0,5.0
+JZJ0017,False,Zero,model ranking not stable enough,6.0,7.0,规则管理,Zero,0.15,1.0,5.0
+JZJ0018,False,Zero,model ranking not stable enough,27.0,7.0,人工复核,MA4_proxy,0.675,1.0,5.0
+JZJ0019,False,Zero,model ranking not stable enough,124.0,7.0,人工复核,MA4_proxy,3.1,2.0,5.0
+JZQCQ001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+JZQCQ003,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+JZQCQ004,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+KFYFQ51mm,False,,fewer than three valid development origins,74.0,7.0,人工复核,MA4_proxy,,,
+KFYFQ54mm,False,,fewer than three valid development origins,79.0,7.0,人工复核,MA4_proxy,,,
+KFYFQ58mm,False,,fewer than three valid development origins,120.0,7.0,人工复核,MA4_proxy,,,
+KFZ0001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+KZCWBG001,True,MA4_proxy,majority winner with required simple-baseline improvement,34.0,7.0,预测管理,MA4_proxy,0.825,4.0,5.0
+LRKF0001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+LTKF0002,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+LTKF0003B,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+LTKF0005A,False,,fewer than three valid development origins,2.0,7.0,规则管理,Zero,,,
+LTKF0006A,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+LTKF0008,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+LTKF0009,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+LTKF0010,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+LTKF0012,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+LTKF0016,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+LTKF0018A,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+LTKF0019,False,Zero,model ranking not stable enough,30.0,7.0,人工复核,MA4_proxy,0.75,2.0,5.0
+LTKF0020,False,ADIDA2,model ranking not stable enough,841.0,7.0,人工复核,MA4_proxy,14.746713192668974,2.0,5.0
+LTKF0021,False,SES,model ranking not stable enough,132.0,7.0,人工复核,MA4_proxy,2.2438734466758885,1.0,5.0
+LTKF0022,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+LTKF0022M,False,Zero,model ranking not stable enough,119.0,7.0,人工复核,MA4_proxy,2.975,1.0,5.0
+LTKF0023,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+LTKF0024A,False,,fewer than three valid development origins,1.0,7.0,规则管理,Zero,,,
+LTKF0031,False,Naive,model ranking not stable enough,101.0,7.0,人工复核,MA4_proxy,1.525,2.0,5.0
+LTKF0047,False,Naive,model ranking not stable enough,7.0,7.0,规则管理,Zero,0.175,2.0,5.0
+LTKF0058,False,Naive,model ranking not stable enough,18.0,7.0,人工复核,MA4_proxy,0.45,2.0,5.0
+LTKF0101,True,MA4_proxy,majority winner with required simple-baseline improvement,265.0,7.0,预测管理,MA4_proxy,5.6625,3.0,5.0
+LTKF0102,False,Zero,model ranking not stable enough,24.0,7.0,人工复核,MA4_proxy,0.6,1.0,5.0
+LTKF0103,False,,fewer than three valid development origins,7.0,7.0,规则管理,Zero,,,
+LTKF0106,False,Naive,model ranking not stable enough,6.0,7.0,规则管理,Zero,0.15,1.0,5.0
+LTKF0111,False,Zero,model ranking not stable enough,32.0,7.0,人工复核,MA4_proxy,0.8,1.0,5.0
+LTKF093,False,SES,model ranking not stable enough,62.0,7.0,人工复核,MA4_proxy,1.5375576242938165,0.0,5.0
+LTKF098,False,Zero,model ranking not stable enough,121.0,7.0,人工复核,MA4_proxy,3.025,1.0,5.0
+LTKF098B,False,,fewer than three valid development origins,36.0,7.0,人工复核,MA4_proxy,,,
+LYC0201,False,Zero,model ranking not stable enough,52.0,7.0,人工复核,MA4_proxy,1.3,0.0,5.0
+LYC0203,False,Zero,model ranking not stable enough,15.0,7.0,人工复核,MA4_proxy,0.375,1.0,5.0
+NNB0002,False,Zero,model ranking not stable enough,238.0,7.0,人工复核,MA4_proxy,5.95,2.0,5.0
+NNBZL01,False,,fewer than three valid development origins,37.0,7.0,人工复核,MA4_proxy,,,
+QCCXC0004,False,Naive,model ranking not stable enough,1.0,7.0,规则管理,Zero,0.025,1.0,5.0
+QCCXC0005,False,,fewer than three valid development origins,6.0,7.0,规则管理,Zero,,,
+QCCXC0007,False,,fewer than three valid development origins,17.0,7.0,人工复核,MA4_proxy,,,
+QCSSXC0004,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+QCSSXC0005,False,,fewer than three valid development origins,43.0,7.0,人工复核,MA4_proxy,,,
+QCSSXC0006,False,,fewer than three valid development origins,36.0,7.0,人工复核,MA4_proxy,,,
+QCXDS001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+QCXXC0001,False,,fewer than three valid development origins,2.0,7.0,规则管理,Zero,,,
+QCXXC0002,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+QFDNZGJK001,False,,fewer than three valid development origins,18.0,7.0,人工复核,MA4_proxy,,,
+QFDNZGJK002,False,,fewer than three valid development origins,40.0,7.0,人工复核,MA4_proxy,,,
+QFSJZ001-1,False,,fewer than three valid development origins,34.0,7.0,人工复核,MA4_proxy,,,
+QFSJZ002-1,False,Zero,model ranking not stable enough,6.0,7.0,规则管理,Zero,0.15,1.0,5.0
+QFSJZ003,False,Zero,model ranking not stable enough,6.0,7.0,规则管理,Zero,0.15,1.0,5.0
+QFSJZ003-1,False,Zero,model ranking not stable enough,38.0,7.0,人工复核,MA4_proxy,0.95,2.0,5.0
+QFYF001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+QYGZIPJ,False,,fewer than three valid development origins,3.0,7.0,规则管理,Zero,,,
+RLHZHMV000AMDE,False,Naive,model ranking not stable enough,294.0,7.0,人工复核,MA4_proxy,2.85,2.0,5.0
+SKZ2FT01,False,,fewer than three valid development origins,5.0,7.0,规则管理,Zero,,,
+SKZ3FT01,False,,fewer than three valid development origins,19.0,7.0,人工复核,MA4_proxy,,,
+SLT0001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+SLT0003,True,MA4_proxy,majority winner with required simple-baseline improvement,29.0,7.0,预测管理,MA4_proxy,0.675,3.0,5.0
+SLT0004,False,Naive,model ranking not stable enough,16.0,7.0,人工复核,MA4_proxy,0.4,2.0,5.0
+SPH0001,False,,fewer than three valid development origins,30.0,7.0,人工复核,MA4_proxy,,,
+SRPDZS0001,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+SRPDZS0002,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+TTNX0002,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+WSJZS0002,False,,fewer than three valid development origins,55.0,7.0,人工复核,MA4_proxy,,,
+WSJZS0004,False,,fewer than three valid development origins,114.0,7.0,人工复核,MA4_proxy,,,
+XFTW0001,False,,fewer than three valid development origins,23.0,7.0,人工复核,MA4_proxy,,,
+XGX9992,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+XGX9993,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+XGX9994,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+XGX9995,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+XGX99990,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+XGX99991,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+XGX99992,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+XGX99993,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+XHP0001,False,Naive,model ranking not stable enough,867.0,7.0,人工复核,MA4_proxy,20.825,1.0,5.0
+XHZXCZP0001,False,ADIDA2,model ranking not stable enough,201.0,7.0,人工复核,MA4_proxy,2.725000008237155,2.0,5.0
+XHZXCZP0002,True,Naive,majority winner with required simple-baseline improvement,109.0,7.0,预测管理,Naive,1.625,3.0,5.0
+XMJ0001,False,,fewer than three valid development origins,23.0,7.0,人工复核,MA4_proxy,,,
+XMJ0004,False,,fewer than three valid development origins,30.0,7.0,人工复核,MA4_proxy,,,
+XMSH0001,False,,fewer than three valid development origins,73.0,7.0,人工复核,MA4_proxy,,,
+XXGP0002,False,,fewer than three valid development origins,51.0,7.0,人工复核,MA4_proxy,,,
+XYJ0001,False,,fewer than three valid development origins,34.0,7.0,人工复核,MA4_proxy,,,
+XYMGPD0001,False,,fewer than three valid development origins,17.0,7.0,人工复核,MA4_proxy,,,
+XYMGPD0002,False,,fewer than three valid development origins,20.0,7.0,人工复核,MA4_proxy,,,
+XYMLRY00001,False,,fewer than three valid development origins,14.0,7.0,人工复核,MA4_proxy,,,
+XYMZD0017,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+XYMZG0016,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+YBB0001,False,,fewer than three valid development origins,17.0,7.0,人工复核,MA4_proxy,,,
+YDBZ001,False,MA4_proxy,model ranking not stable enough,70.0,7.0,人工复核,MA4_proxy,1.6625,2.0,5.0
+YDBZ002,False,Zero,model ranking not stable enough,60.0,7.0,人工复核,MA4_proxy,1.5,1.0,5.0
+YDBZLV0001AMDE,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+YDBZWV0001AMDE,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+YEC0009,False,,fewer than three valid development origins,33.0,7.0,人工复核,MA4_proxy,,,
+YJL0002,False,,fewer than three valid development origins,3.0,7.0,规则管理,Zero,,,
+YJLZHMV000AMDE,False,MA4_proxy,model ranking not stable enough,31.0,7.0,人工复核,MA4_proxy,0.675,2.0,5.0
+YJX0022,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+YJX0023,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+YJX0024,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+YJX0025,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+YKLLW0004,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+YKLLW0005,False,,fewer than three valid development origins,1.0,7.0,规则管理,Zero,,,
+YKLLW0006,False,,fewer than three valid development origins,1.0,7.0,规则管理,Zero,,,
+YXBLJ0001,False,Naive,model ranking not stable enough,21.0,7.0,人工复核,MA4_proxy,0.325,2.0,5.0
+ZBTZ0002,False,Naive,model ranking not stable enough,19.0,7.0,人工复核,MA4_proxy,0.475,3.0,5.0
+ZBTZ0003,False,Zero,model ranking not stable enough,12.0,7.0,人工复核,MA4_proxy,0.3,1.0,5.0
+ZJJSJBV001AMDE,False,,fewer than three valid development origins,2.0,7.0,规则管理,Zero,,,
+ZJJSJSV001AMDE,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+ZJJYZBV001AMDE,False,,fewer than three valid development origins,8.0,7.0,人工复核,MA4_proxy,,,
+ZJJYZSJBV1AMDE,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+ZJJYZSJSV1AMDE,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+ZJJYZSJSV2AMDE,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+ZTD0001,False,Zero,model ranking not stable enough,46.0,7.0,人工复核,MA4_proxy,1.15,1.0,5.0
+ZTD0003,False,Naive,model ranking not stable enough,63.0,7.0,人工复核,MA4_proxy,1.575,1.0,5.0
+ZTD0004,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+xgx0013,False,,fewer than three valid development origins,5.0,7.0,规则管理,Zero,,,
+xgx0014,False,,fewer than three valid development origins,22.0,7.0,人工复核,MA4_proxy,,,
+xgx0015,False,,fewer than three valid development origins,30.0,7.0,人工复核,MA4_proxy,,,
+xgx0016,False,,fewer than three valid development origins,27.0,7.0,人工复核,MA4_proxy,,,
+xymzd0015,False,,fewer than three valid development origins,9.0,7.0,人工复核,MA4_proxy,,,
+xymzd0016,False,,fewer than three valid development origins,0.0,7.0,规则管理,Zero,,,
+zxy0002,False,,fewer than three valid development origins,1.0,7.0,规则管理,Zero,,,

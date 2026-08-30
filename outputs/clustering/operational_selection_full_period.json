@@ -1,0 +1,32 @@
+{
+  "feature_names": [
+    "ADI",
+    "CV2",
+    "nonzero_mean",
+    "acf1"
+  ],
+  "k": 2,
+  "reason": "No challenger dominated the pre-specified four-feature K=2 benchmark; benchmark retained.",
+  "row": {
+    "feature_set": "ADI+CV2+nonzero_mean+acf1",
+    "n_features": 4,
+    "k": 2,
+    "n_skus": 197,
+    "valid": true,
+    "error": "",
+    "silhouette": 0.36919163069361133,
+    "calinski_harabasz": 146.19669862567136,
+    "min_cluster_size": 77,
+    "max_cluster_size": 120,
+    "cluster_sizes": "1:120;2:77",
+    "stability_ari_mean": 0.8375218757521133,
+    "stability_ari_median": 0.8756780095874471,
+    "stability_ari_p10": 0.6309791201417967,
+    "stability_ari_p90": 0.974490427059972,
+    "cluster_jaccard_medians": "{\"1\": 0.9497474747474748, \"2\": 0.921875}",
+    "sensitivity_pareto": false,
+    "confirmatory_eligible": true,
+    "pareto": false
+  },
+  "elapsed_seconds": 519.6431481209999
+}

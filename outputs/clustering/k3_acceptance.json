@@ -1,0 +1,37 @@
+{
+  "feature_set": "ADI+CV2+nonzero_mean+acf1",
+  "k2_silhouette": 0.3691916306936113,
+  "k3_silhouette": 0.2853671679004186,
+  "k2_stability_ari_median": 0.8756780095874471,
+  "k3_stability_ari_median": 0.6604563776421359,
+  "k3_cluster_jaccard_medians": {
+    "1": 0.9212549603174602,
+    "2": 0.7310620479634564,
+    "3": 0.5300120048019208
+  },
+  "k3_cluster_sizes": {
+    "1": 91,
+    "2": 29,
+    "3": 77
+  },
+  "raw_v2": {
+    "n_common_skus": 197,
+    "ari": 0.7786097010636871
+  },
+  "main_strict": {
+    "n_common_skus": 148,
+    "ari": 0.7226683544505832
+  },
+  "conditions": {
+    "not_dominated_by_k2": false,
+    "all_cluster_jaccard_at_least_threshold": false,
+    "all_clusters_large_enough": true,
+    "all_clusters_profile_separated": true,
+    "raw_v2_ari_at_least_threshold": false,
+    "main_strict_ari_at_least_threshold": true,
+    "independent_non_residual_interpretation": false
+  },
+  "k3_passed": false,
+  "conditional_croston_allowed": false,
+  "interpretation_note": "The least stable third cluster cannot be treated as an independent non-residual demand type."
+}

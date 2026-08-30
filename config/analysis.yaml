@@ -1,0 +1,92 @@
+project:
+  name: mba-thesis-analysis
+  seed: 42
+  timezone: UTC
+
+input:
+  workbook: "01_原始数据/德国Amazon_SKU周度数据_原始合并版_未清洗 (1).xlsx"
+  metadata_columns: 8
+  sku_column: "SKU"
+  country: "德国"
+  expected_sha256: "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6"
+  calendar:
+    week_start: monday
+    merge_same_iso_week_fragments: true
+    minimum_covered_days: 7
+
+cleaning_v2:
+  zero_run_min: 2
+  zero_run_max: 12
+  context_window_max: 12
+  minimum_positive_share: 0.75
+  minimum_positive_weeks_each_side: 3
+  probability_cutoff: 0.05
+  correct_leading_or_trailing_runs: false
+
+samples:
+  low_information_positive_weeks: 2
+  main_min_positive_weeks: 5
+  robustness_min_positive_weeks: 10
+
+features:
+  anchors: [ADI, CV2]
+  confirmatory_optional: [mean_sales, std_sales, nonzero_mean, acf1]
+  sensitivity_optional: [mean_sales, median_sales, std_sales, nonzero_mean, acf1]
+  mutually_exclusive:
+    - [mean_sales, nonzero_mean]
+  profile_only: [zero_ratio, median_sales]
+  exploratory: [trend_coef, seasonality_idx, peak_ratio, promo_weight_ratio]
+
+preprocessing:
+  power_transform: yeo-johnson
+  standardize: true
+
+clustering:
+  primary_algorithm: ward
+  k_values: [2, 3, 4, 5, 6]
+  stability:
+    repetitions: 500
+    sample_fraction: 0.80
+    replace: false
+  kmeans_robustness:
+    n_init: 100
+  operational_selection:
+    rule: benchmark_dominance_then_parsimony
+    benchmark_features: [ADI, CV2, nonzero_mean, acf1]
+    benchmark_k: 2
+    minimum_cluster_jaccard_median: 0.75
+    minimum_cluster_size: 10
+    minimum_cluster_share: 0.05
+  k3_acceptance:
+    minimum_cluster_jaccard_median: 0.75
+    minimum_cluster_size: 10
+    minimum_cluster_share: 0.05
+    minimum_profile_effect_size: 0.50
+    minimum_raw_v2_ari: 0.80
+    minimum_main_strict_ari: 0.70
+
+forecast:
+  total_backtest_weeks: 48
+  horizon_weeks: 8
+  origins: 6
+  development_origins: 5
+  final_holdout_origins: 1
+  models: [MA4_proxy, Naive, SES, ADIDA2]
+  adida_aggregation_weeks: 2
+  adida_sensitivity_weeks: [4, 6, 8]
+  conditional_croston_enabled: true
+  routing:
+    loss: mae
+    minimum_valid_origins: 3
+    minimum_winning_origins: 3
+    complex_min_relative_improvement: 0.05
+    simple_tie_relative_gap: 0.02
+    impact_quantile: 0.50
+
+evaluation:
+  metrics: [mean_mase, median_mase, mase_lt_1_share, mae, wape, volume_weighted_wape, bias]
+  paired_bootstrap_repetitions: 1000
+
+outputs:
+  root: outputs
+  report: reports/final_report.md

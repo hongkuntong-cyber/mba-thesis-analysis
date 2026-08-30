@@ -1,0 +1,11 @@
+demand_profile,management_path,routed_model,n_skus
+cluster_1,人工复核,MA4_proxy,69
+cluster_1,规则管理,Zero,1
+cluster_1,预测管理,MA4_proxy,2
+cluster_1,预测管理,Naive,4
+cluster_2,人工复核,MA4_proxy,29
+cluster_2,规则管理,Zero,12
+cluster_2,预测管理,MA4_proxy,1
+cluster_2,预测管理,Naive,1
+low_information,人工复核,MA4_proxy,3
+low_information,规则管理,Zero,25

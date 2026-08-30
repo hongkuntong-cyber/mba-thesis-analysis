@@ -1,0 +1,14 @@
+{
+  "ward_kmeans_ari": 0.9003852486734362,
+  "raw_v2": {
+    "n_common_skus": 197,
+    "ari": 0.9199336598596725
+  },
+  "main_strict": {
+    "n_common_skus": 148,
+    "ari": 0.6017682106477032
+  },
+  "assignment_stability_median": 0.9974619289340102,
+  "assignment_stability_p10": 0.8742452818247408,
+  "assignment_stability_below_0_75": 9
+}

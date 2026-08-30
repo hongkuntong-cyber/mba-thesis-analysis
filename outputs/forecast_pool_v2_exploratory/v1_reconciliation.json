@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "v1_rows": 4655,
+  "v2_core_rows": 4655,
+  "unmatched_rows": 0,
+  "maximum_absolute_differences": {
+    "cluster": 0.0,
+    "mase_scale": 1.7763568394002505e-15,
+    "mase": 7.105427357601002e-15,
+    "mae": 3.552713678800501e-15,
+    "actual_sum": 0.0,
+    "forecast_sum": 2.842170943040401e-14,
+    "abs_error_sum": 2.842170943040401e-14,
+    "signed_error_sum": 2.842170943040401e-14
+  }
+}

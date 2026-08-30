@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "checks": {
+    "unique_sku_origin_model_rows": true,
+    "mase_formula_matches_mae_over_training_scale": true,
+    "one_training_scale_per_sku_origin": true,
+    "one_actual_volume_per_sku_origin": true,
+    "all_forecast_sums_nonnegative": true,
+    "saved_common_holdout_summary_recomputes": true,
+    "v1_core_predictions_reconcile": true
+  },
+  "diagnostics": {
+    "duplicate_rows": 0,
+    "maximum_mase_formula_error": 2.5579538487363607e-13,
+    "maximum_saved_summary_error": 4.440892098500626e-16,
+    "holdout_native_skus": 147,
+    "holdout_common_mase_skus": 129,
+    "holdout_sba_unavailable_skus": 18
+  }
+}
