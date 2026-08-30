@@ -1,0 +1,7 @@
+origin_index,origin,training_rows,eligible_cluster_skus,forecasted_skus,low_information_forecasted,skipped_incomplete_test,skipped_training_gap,skipped_model_error,unavailable_adida,v2_corrected_intervals
+1,2025-09-01,16965,130,195,65,0,0,0,0,16
+2,2025-10-27,18525,146,195,49,0,0,0,0,19
+3,2025-12-22,20085,156,100,9,95,0,0,0,21
+4,2026-02-16,21262,161,147,51,0,95,0,0,30
+5,2026-04-13,22438,177,147,35,0,95,0,0,31
+6,2026-06-08,23614,184,147,28,0,95,0,0,35
