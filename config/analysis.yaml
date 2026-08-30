@@ -54,6 +54,9 @@ clustering:
     rule: benchmark_dominance_then_parsimony
     benchmark_features: [ADI, CV2, nonzero_mean, acf1]
     benchmark_k: 2
+    minimum_cluster_jaccard_median: 0.75
+    minimum_cluster_size: 10
+    minimum_cluster_share: 0.05
   k3_acceptance:
     minimum_cluster_jaccard_median: 0.75
     minimum_cluster_size: 10
