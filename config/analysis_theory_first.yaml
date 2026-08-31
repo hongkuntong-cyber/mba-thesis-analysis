@@ -1,0 +1,65 @@
+project:
+  name: mba-thesis-analysis-theory-first
+  protocol_version: "2.1"
+  analysis_mode: retrospective_method_development
+  seed: 42
+  timezone: UTC
+
+input:
+  workbook: "01_原始数据/德国Amazon_SKU周度数据_原始合并版_未清洗 (1).xlsx"
+  metadata_columns: 8
+  sku_column: "SKU"
+  country: "德国"
+  expected_sha256: "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6"
+  calendar:
+    week_start: monday
+    merge_same_iso_week_fragments: true
+    minimum_covered_days: 7
+
+cleaning_v2:
+  zero_run_min: 2
+  zero_run_max: 12
+  context_window_max: 12
+  minimum_positive_share: 0.75
+  minimum_positive_weeks_each_side: 3
+  probability_cutoff: 0.05
+  correct_leading_or_trailing_runs: false
+
+samples:
+  low_information_positive_weeks: 2
+  main_min_positive_weeks: 5
+  robustness_min_positive_weeks: 10
+
+features:
+  evidence_registry: protocol/feature_evidence_registry.csv
+  evidence_registry_sha256: "28e4f18e9d1168b2862763f313ab73d96db1d555f9d9c5a8ac532cf834369c39"
+  required_anchors: [ADI, CV2]
+  selection_source: evidence_registry_only
+
+preprocessing:
+  power_transform: yeo-johnson
+  standardize: true
+
+clustering:
+  primary_algorithm: ward
+  operational_k: 2
+  sensitivity_k_values: [2, 3, 4, 5, 6]
+  stability:
+    repetitions: 500
+    debug_repetitions: 10
+    sample_fraction: 0.80
+    replace: false
+  kmeans_robustness:
+    n_init: 100
+  feature_selection:
+    rule: theory_benchmark_dominance_then_parsimony
+    benchmark_features: [ADI, CV2]
+    benchmark_k: 2
+    epsilon: 1.0e-12
+    minimum_cluster_jaccard_median: 0.75
+    minimum_cluster_size: 10
+    minimum_cluster_share: 0.05
+
+outputs:
+  root: outputs/theory_first_v2
+  report: reports/theory_first_feature_analysis.md

@@ -7,6 +7,67 @@ import numpy as np
 import pandas as pd
 
 
+def approximate_entropy(
+    values: Iterable[float],
+    *,
+    embedding_dimension: int = 2,
+    tolerance_scale: float = 0.5,
+    minimum_length: int = 5,
+) -> float:
+    """Compute approximate entropy with self-matches and Chebyshev distance.
+
+    The defaults reproduce the parameterization in the FIDE author
+    implementation: m=2 and r=0.5 times the full-series sample standard
+    deviation. The calculation is deterministic and uses only the supplied
+    sequence.
+    """
+    array = np.asarray(list(values), dtype=float)
+    if array.ndim != 1:
+        raise ValueError("Approximate entropy requires a one-dimensional sequence")
+    if len(array) < minimum_length:
+        return np.nan
+    if not np.isfinite(array).all():
+        raise ValueError("Approximate entropy does not accept missing or infinite values")
+    if (array < 0).any():
+        raise ValueError("Demand values must be nonnegative")
+    if embedding_dimension < 1:
+        raise ValueError("embedding_dimension must be at least one")
+    if tolerance_scale <= 0:
+        raise ValueError("tolerance_scale must be positive")
+
+    sample_std = float(np.std(array, ddof=1))
+    if sample_std == 0:
+        return 0.0
+    tolerance = tolerance_scale * sample_std
+
+    def phi(dimension: int) -> float:
+        windows = np.lib.stride_tricks.sliding_window_view(array, dimension)
+        distances = np.max(
+            np.abs(windows[:, np.newaxis, :] - windows[np.newaxis, :, :]),
+            axis=2,
+        )
+        match_share = np.mean(distances <= tolerance, axis=1)
+        return float(np.mean(np.log(match_share)))
+
+    return phi(embedding_dimension) - phi(embedding_dimension + 1)
+
+
+def trailing_zero_share(values: Iterable[float]) -> float:
+    """Return the terminal consecutive zero-run length divided by series length."""
+    array = np.asarray(list(values), dtype=float)
+    if array.ndim != 1:
+        raise ValueError("Trailing-zero share requires a one-dimensional sequence")
+    if len(array) == 0:
+        return np.nan
+    if not np.isfinite(array).all():
+        raise ValueError("Trailing-zero share does not accept missing or infinite values")
+    if (array < 0).any():
+        raise ValueError("Demand values must be nonnegative")
+    nonzero_positions = np.flatnonzero(array != 0)
+    terminal_length = len(array) if len(nonzero_positions) == 0 else len(array) - 1 - int(nonzero_positions[-1])
+    return float(terminal_length / len(array))
+
+
 def _acf1_for_consecutive_weeks(frame: pd.DataFrame, value_column: str) -> tuple[float, bool]:
     ordered = frame.sort_values("week_start")
     values = ordered[value_column].to_numpy(dtype=float)
@@ -32,6 +93,10 @@ def compute_features(weekly: pd.DataFrame, value_column: str = "sales_v2") -> pd
         values = frame.sort_values("week_start")[value_column].to_numpy(dtype=float)
         if np.isnan(values).any():
             continue
+        if not np.isfinite(values).all():
+            raise ValueError(f"Non-finite demand values for SKU {sku}")
+        if (values < 0).any():
+            raise ValueError(f"Negative demand values for SKU {sku}")
         positive = values[values > 0]
         n_observed = len(values)
         n_positive = len(positive)
@@ -55,6 +120,8 @@ def compute_features(weekly: pd.DataFrame, value_column: str = "sales_v2") -> pd
                 "CV2": cv2,
                 "ADI": adi,
                 "zero_ratio": n_zero / n_observed if n_observed else np.nan,
+                "approx_entropy": approximate_entropy(values),
+                "trailing_zero_share": trailing_zero_share(values),
                 "acf1": acf1,
                 "acf1_zero_variance": acf1_zero_variance,
             }

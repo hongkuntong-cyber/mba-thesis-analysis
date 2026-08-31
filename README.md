@@ -4,7 +4,33 @@
 
 研究以“严格、可验证、可复现”为原则。正式方法已冻结在 `protocol/`，任何协议调整均以带版本号的修订文件保留，不能根据结果反向改写清洗规则、候选特征、K 值范围或评价指标。
 
-## 当前结论
+## 理论先行 V2（当前分支）
+
+`analysis/theory-first-feature-gate` 将早期“12 项候选长名单”改造成失败关闭的文献准入门。候选数量不再预设：证据登记表目前只准入 `ADI`、`CV2`、`approx_entropy` 和 `trailing_zero_share`，代码只允许枚举由这 4 项形成、且必须包含两个理论锚点的 4 个组合。
+
+同一工作簿的旧结果已经被查看，因此本分支对现有数据的运行只能称为“回顾性方法开发”，不能重新命名为确认性检验。未来新增、未查看数据才可按冻结规则执行确认性复跑。
+
+先运行快速工程检查（单独写入 debug 目录）：
+
+```bash
+python -m src.theory_first_pipeline --config config/analysis_theory_first.yaml --debug
+```
+
+再运行冻结的 500 次稳定性分析：
+
+```bash
+python -m src.theory_first_pipeline --config config/analysis_theory_first.yaml
+```
+
+新版证据与方法入口：
+
+- [`protocol/amendment_v2.0_theory_first_feature_gate.md`](protocol/amendment_v2.0_theory_first_feature_gate.md)
+- [`protocol/feature_evidence_registry.csv`](protocol/feature_evidence_registry.csv)
+- [`protocol/feature_dictionary_v2.md`](protocol/feature_dictionary_v2.md)
+- [`protocol/amendment_v2.1_k2_feature_selection.md`](protocol/amendment_v2.1_k2_feature_selection.md)
+- [`config/analysis_theory_first.yaml`](config/analysis_theory_first.yaml)
+
+## 历史 V1 结果（保留用于复现）
 
 - 完整期间主聚类：`ADI + CV2 + nonzero_mean + acf1`，Ward `K=2`，主样本 N=197。
 - `K=3` 未通过预定稳定性、Raw/V2 一致性和独立画像条件，因此 SBA/TSB 未进入正式模型池。
@@ -38,7 +64,7 @@ Windows PowerShell 激活命令为：
 
 ## 一条命令运行
 
-正式端到端运行：
+历史 V1 端到端运行：
 
 ```bash
 python -m src.pipeline --config config/analysis.yaml

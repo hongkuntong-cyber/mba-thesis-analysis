@@ -174,6 +174,77 @@ def select_operational_solution(
     )
 
 
+def select_theory_benchmark_solution(
+    results: pd.DataFrame,
+    *,
+    benchmark_features: Iterable[str] = ("ADI", "CV2"),
+    benchmark_k: int = 2,
+    minimum_cluster_jaccard_median: float = 0.75,
+    minimum_cluster_size: int = 10,
+    minimum_cluster_share: float = 0.05,
+    epsilon: float = 1e-12,
+) -> SelectedSolution:
+    """Apply the V2.1 fail-closed theory-benchmark dominance rule."""
+    benchmark_key = _feature_key(benchmark_features)
+    valid = results.loc[results["valid"] & results["k"].eq(benchmark_k)].copy()
+    valid = valid.loc[
+        valid["cluster_jaccard_medians"].map(
+            lambda value: min(float(item) for item in json.loads(value).values())
+            >= minimum_cluster_jaccard_median
+        )
+    ].copy()
+    valid = valid.loc[valid["min_cluster_size"].ge(minimum_cluster_size)].copy()
+    valid = valid.loc[
+        valid["min_cluster_size"].div(valid["n_skus"]).ge(minimum_cluster_share)
+    ].copy()
+
+    benchmark = valid.loc[valid["feature_set"].eq(benchmark_key)]
+    if len(benchmark) != 1:
+        raise ValueError(
+            "The frozen theory benchmark must appear exactly once and pass all "
+            f"structural gates: {benchmark_key}, K={benchmark_k}"
+        )
+    benchmark_row = benchmark.iloc[0]
+    challengers = valid.loc[
+        ~valid["feature_set"].eq(benchmark_key)
+        & (valid["silhouette"] >= float(benchmark_row["silhouette"]) - epsilon)
+        & (
+            valid["stability_ari_median"]
+            >= float(benchmark_row["stability_ari_median"]) - epsilon
+        )
+        & (
+            (valid["silhouette"] > float(benchmark_row["silhouette"]) + epsilon)
+            | (
+                valid["stability_ari_median"]
+                > float(benchmark_row["stability_ari_median"]) + epsilon
+            )
+        )
+    ].copy()
+
+    if challengers.empty:
+        selected = benchmark_row
+        reason = (
+            "No admitted supplementary feature set dominated the frozen ADI+CV2 "
+            "theory benchmark on both primary metrics; the benchmark was retained."
+        )
+    else:
+        selected = challengers.sort_values(
+            ["n_features", "stability_ari_median", "silhouette", "feature_set"],
+            ascending=[True, False, False, True],
+        ).iloc[0]
+        reason = (
+            "An admitted supplementary feature set dominated the frozen ADI+CV2 "
+            "theory benchmark; ties were resolved by parsimony, stability, "
+            "Silhouette, and feature-name order."
+        )
+    return SelectedSolution(
+        feature_names=tuple(str(selected["feature_set"]).split("+")),
+        k=int(selected["k"]),
+        reason=reason,
+        row=selected.to_dict(),
+    )
+
+
 def fit_solution(features: pd.DataFrame, feature_names: Iterable[str], k: int) -> pd.DataFrame:
     output = features.copy().reset_index(drop=True)
     fit = fit_ward(output, feature_names, k)
@@ -181,21 +252,27 @@ def fit_solution(features: pd.DataFrame, feature_names: Iterable[str], k: int) -
     return output
 
 
-def cluster_profiles(labeled_features: pd.DataFrame) -> pd.DataFrame:
-    profile_columns = [
-        "ADI",
-        "CV2",
-        "nonzero_mean",
-        "mean_sales",
-        "median_sales",
-        "std_sales",
-        "acf1",
-        "zero_ratio",
-        "total_sales",
-        "n_positive",
-    ]
+def cluster_profiles(
+    labeled_features: pd.DataFrame,
+    profile_columns: Iterable[str] | None = None,
+) -> pd.DataFrame:
+    if profile_columns is None:
+        profile_columns = [
+            "ADI",
+            "CV2",
+            "nonzero_mean",
+            "mean_sales",
+            "median_sales",
+            "std_sales",
+            "acf1",
+            "zero_ratio",
+            "total_sales",
+            "n_positive",
+        ]
     aggregations: dict[str, tuple[str, str]] = {"n_skus": ("sku", "count")}
     for column in profile_columns:
+        if column not in labeled_features.columns:
+            raise ValueError(f"Missing cluster profile column: {column}")
         aggregations[f"{column}_median"] = (column, "median")
         aggregations[f"{column}_mean"] = (column, "mean")
     return labeled_features.groupby("cluster", as_index=False).agg(**aggregations)
@@ -206,20 +283,22 @@ def cluster_profile_intervals(
     *,
     repetitions: int,
     seed: int,
+    profile_columns: Iterable[str] | None = None,
 ) -> pd.DataFrame:
     """SKU-level percentile intervals for raw-scale cluster medians."""
-    profile_columns = [
-        "ADI",
-        "CV2",
-        "nonzero_mean",
-        "mean_sales",
-        "median_sales",
-        "std_sales",
-        "acf1",
-        "zero_ratio",
-        "total_sales",
-        "n_positive",
-    ]
+    if profile_columns is None:
+        profile_columns = [
+            "ADI",
+            "CV2",
+            "nonzero_mean",
+            "mean_sales",
+            "median_sales",
+            "std_sales",
+            "acf1",
+            "zero_ratio",
+            "total_sales",
+            "n_positive",
+        ]
     rng = np.random.default_rng(seed)
     rows: list[dict[str, float | int | str]] = []
     for cluster, frame in labeled_features.groupby("cluster", sort=True):
