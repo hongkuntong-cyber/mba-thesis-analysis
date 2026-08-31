@@ -1,0 +1,13 @@
+feature,construct,status,evidence_grade,formula_frozen,primary_source_1,primary_source_2,logical_constraint,confirmatory_allowed,decision_note
+ADI,intermittence,admitted_anchor,A,true,https://doi.org/10.1057/palgrave.jors.2601841,https://doi.org/10.1057/palgrave.jors.2602211,none,true,Average inter-demand interval is a literature-established demand categorization dimension.
+CV2,positive_demand_size_variability,admitted_anchor,A,true,https://doi.org/10.1057/palgrave.jors.2601841,https://doi.org/10.1057/palgrave.jors.2602211,none,true,Squared coefficient of variation of positive demand sizes is a literature-established categorization dimension.
+zero_ratio,intermittence,rejected_exact_identity,,true,,,Exact transform of ADI under complete nonnegative weekly observations,false,Profile only because ADI is the frozen anchor.
+mean_sales,demand_scale,pending_literature,,true,,,Alternative representation may conflict with other scale measures,false,Not admitted until original literature and construct choice are documented.
+median_sales,demand_scale,pending_literature,,true,,,Potential threshold behavior in zero-heavy series,false,Not admitted until original literature and construct choice are documented.
+std_sales,demand_variability,pending_literature,,true,,,May combine intermittence size and variability already represented elsewhere,false,Not admitted until original literature and deterministic relationships are reviewed.
+nonzero_mean,positive_demand_size,pending_literature,,true,,,Potential scale construct; source not yet screened,false,Not admitted by business intuition alone.
+acf1,serial_dependence,pending_literature,,true,,,Potential temporal construct; source not yet screened,false,Not admitted by business intuition alone.
+trend_coef,trend,pending_literature,,false,,,Formula and minimum history are not frozen,false,Pending literature and formula review.
+seasonality_idx,seasonality,pending_literature,,false,,,Formula cycles and minimum history are not frozen,false,Pending literature and formula review.
+peak_ratio,extreme_concentration,pending_literature,,false,,,Formula and outlier treatment are not frozen,false,Pending literature and formula review.
+promo_weight_ratio,promotion_exposure,rejected_data_unavailable,,false,,,No verified SKU-week promotion field is available,false,Calendar weights cannot substitute for observed promotion data.
