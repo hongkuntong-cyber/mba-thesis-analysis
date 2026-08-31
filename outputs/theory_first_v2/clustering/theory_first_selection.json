@@ -1,0 +1,62 @@
+{
+  "analysis_mode": "retrospective_method_development",
+  "confirmatory": false,
+  "protocol_version": "2.1",
+  "feature_gate": {
+    "registry_sha256": "28e4f18e9d1168b2862763f313ab73d96db1d555f9d9c5a8ac532cf834369c39",
+    "anchors": [
+      "ADI",
+      "CV2"
+    ],
+    "supplementaries": [
+      "approx_entropy",
+      "trailing_zero_share"
+    ],
+    "n_feature_sets": 4
+  },
+  "stability_repetitions": 500,
+  "selection": {
+    "feature_names": [
+      "ADI",
+      "CV2"
+    ],
+    "k": 2,
+    "reason": "No admitted supplementary feature set dominated the frozen ADI+CV2 theory benchmark on both primary metrics; the benchmark was retained.",
+    "row": {
+      "feature_set": "ADI+CV2",
+      "n_features": 2,
+      "k": 2,
+      "n_skus": 197,
+      "valid": true,
+      "error": "",
+      "silhouette": 0.38849092414851033,
+      "calinski_harabasz": 152.7526785259142,
+      "min_cluster_size": 74,
+      "max_cluster_size": 123,
+      "cluster_sizes": "1:123;2:74",
+      "stability_ari_mean": 0.6393872223005344,
+      "stability_ari_median": 0.6504809923367323,
+      "stability_ari_p10": 0.46114655644807384,
+      "stability_ari_p90": 0.7823337726244254,
+      "cluster_jaccard_medians": "{\"1\": 0.8571428571428571, \"2\": 0.7703810367744794}",
+      "all_k_pareto": true,
+      "k2_pareto": true,
+      "analysis_mode": "retrospective_method_development",
+      "registry_sha256": "28e4f18e9d1168b2862763f313ab73d96db1d555f9d9c5a8ac532cf834369c39"
+    }
+  },
+  "robustness": {
+    "ward_kmeans_ari": 0.682224038627069,
+    "raw_v2": {
+      "n_common_skus": 197,
+      "ari": 0.40268205177130756
+    },
+    "main_strict": {
+      "n_common_skus": 148,
+      "ari": 0.7409962463224105
+    },
+    "assignment_stability_median": 0.9975728155339806,
+    "assignment_stability_p10": 0.5716739241491717
+  },
+  "elapsed_seconds": 1138.262562717
+}

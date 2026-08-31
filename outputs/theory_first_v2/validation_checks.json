@@ -1,0 +1,23 @@
+{
+  "all_passed": true,
+  "failed_checks": [],
+  "checks": {
+    "analysis_labeled_retrospective": true,
+    "registry_hash_matches_config": true,
+    "registry_hash_matches_outputs": true,
+    "formal_repetition_count": true,
+    "candidate_sets_exact": true,
+    "candidate_grid_complete": true,
+    "all_grid_rows_valid": true,
+    "selection_reproducible": true,
+    "operational_k_fixed_at_two": true,
+    "raw_workbook_hash_matches": true,
+    "no_blocking_audit_findings": true,
+    "feature_identities_hold": true,
+    "diagnostic_sets_exact": true,
+    "diagnostics_did_not_reselect": true
+  },
+  "selected_feature_set": "ADI+CV2",
+  "selected_k": 2,
+  "analysis_mode": "retrospective_method_development"
+}

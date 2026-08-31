@@ -1,0 +1,26 @@
+{
+  "analysis_mode": "retrospective_method_development",
+  "confirmatory": false,
+  "selection_changed": false,
+  "selected_feature_set": "ADI+CV2",
+  "selected_diagnostics": {
+    "feature_set": "ADI+CV2",
+    "n_features": 2,
+    "raw_v2_ari": 0.40268205177130756,
+    "raw_v2_same_label_share": 0.8223350253807107,
+    "raw_v2_changed_skus": 35,
+    "changed_corrected_skus": 0,
+    "changed_uncorrected_skus": 35,
+    "main_strict_ari": 0.7409962463224105,
+    "main_strict_same_label_share": 0.9324324324324325,
+    "main_strict_changed_skus": 10,
+    "v2_cluster_sizes": "1:123;2:74",
+    "raw_cluster_sizes": "1:152;2:45",
+    "strict_cluster_sizes": "1:98;2:50",
+    "n_v2": 197,
+    "n_raw": 197,
+    "n_strict": 148
+  },
+  "corrected_sku_count": 30,
+  "interpretation": "The frozen primary-metric selection is unchanged. Raw/V2 and sample-threshold results are robustness diagnostics and cannot be used to reselect features."
+}
