@@ -22,6 +22,18 @@ python -m src.theory_first_pipeline --config config/analysis_theory_first.yaml -
 python -m src.theory_first_pipeline --config config/analysis_theory_first.yaml
 ```
 
+正式主网格完成后，运行不参与重选的 Raw/V2 与样本门槛诊断：
+
+```bash
+python -m src.theory_first_diagnostics --config config/analysis_theory_first.yaml
+```
+
+最后执行输出一致性校验：
+
+```bash
+python -m src.validate_theory_first --config config/analysis_theory_first.yaml
+```
+
 新版证据与方法入口：
 
 - [`protocol/amendment_v2.0_theory_first_feature_gate.md`](protocol/amendment_v2.0_theory_first_feature_gate.md)
