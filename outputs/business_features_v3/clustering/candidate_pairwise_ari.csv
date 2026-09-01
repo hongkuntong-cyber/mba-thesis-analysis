@@ -1,0 +1,4 @@
+left_feature_set,right_feature_set,n_common_skus,ari
+ADI+CV2,ADI+CV2+acf1+nonzero_mean,197,0.3600864464117645
+ADI+CV2,ADI+CV2+peak_ratio,197,0.6136619447807815
+ADI+CV2+acf1+nonzero_mean,ADI+CV2+peak_ratio,197,0.4774910458347079

@@ -1,0 +1,46 @@
+{
+  "analysis_mode": "retrospective_method_development",
+  "confirmatory": false,
+  "protocol_version": "3.0",
+  "feature_gate": {
+    "registry_sha256": "12283853551a97c65d5dd5cda121dea0fa581b57c1a860afbe6258755f7d4db0",
+    "anchors": [
+      "ADI",
+      "CV2"
+    ],
+    "supplementaries": [
+      "acf1",
+      "nonzero_mean",
+      "peak_ratio",
+      "promo_response_index",
+      "trailing_zero_share",
+      "trend_coef"
+    ],
+    "admitted_features": [
+      "ADI",
+      "CV2",
+      "acf1",
+      "nonzero_mean",
+      "peak_ratio",
+      "promo_response_index",
+      "trailing_zero_share",
+      "trend_coef"
+    ],
+    "n_feature_sets": 64
+  },
+  "stability_repetitions": 500,
+  "operational_k": 2,
+  "pareto_shortlist": [
+    "ADI+CV2+acf1+nonzero_mean",
+    "ADI+CV2+peak_ratio"
+  ],
+  "decision_status": "存在 2 个 Pareto 候选，需要稳健性与业务画像审阅",
+  "sample_counts": {
+    "all_skus": 242,
+    "main": 197,
+    "strict": 148,
+    "long_history": 165,
+    "short_history_excluded_from_seasonality": 32
+  },
+  "elapsed_seconds": 101.24779722300013
+}

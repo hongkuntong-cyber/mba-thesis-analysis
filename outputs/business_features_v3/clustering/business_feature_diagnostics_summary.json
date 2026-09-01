@@ -1,0 +1,24 @@
+{
+  "analysis_mode": "retrospective_method_development",
+  "confirmatory": false,
+  "review_feature_sets": [
+    "ADI+CV2",
+    "ADI+CV2+acf1+nonzero_mean",
+    "ADI+CV2+peak_ratio"
+  ],
+  "pareto_feature_sets": [
+    "ADI+CV2+acf1+nonzero_mean",
+    "ADI+CV2+peak_ratio"
+  ],
+  "main_sample_n": 197,
+  "long_history_sample_n": 165,
+  "stability_repetitions": 500,
+  "profile_bootstrap_repetitions": 1000,
+  "k_values": [
+    2,
+    3,
+    4,
+    5,
+    6
+  ]
+}
