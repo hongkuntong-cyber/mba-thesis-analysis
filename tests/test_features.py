@@ -7,6 +7,11 @@ from src.features import (
     approximate_entropy,
     compute_features,
     enumerate_confirmatory_feature_sets,
+    normalized_trend_coefficient,
+    peak_ratio,
+    promotion_exposure_features,
+    promotion_week_weight,
+    seasonal_lag_strength,
     trailing_zero_share,
     verify_feature_identities,
 )
@@ -63,6 +68,29 @@ class FeatureTests(unittest.TestCase):
         row = compute_features(weekly).iloc[0]
         self.assertTrue(np.isfinite(row["approx_entropy"]))
         self.assertEqual(row["trailing_zero_share"], 0.25)
+
+    def test_cross_month_promotion_week_uses_daily_average(self) -> None:
+        # Monday 29 January 2024 contains three January days (W=0)
+        # and four February days (W=1).
+        self.assertAlmostEqual(promotion_week_weight("2024-01-29"), 4 / 7)
+
+    def test_promotion_response_normalizes_observed_calendar(self) -> None:
+        direct, window_mean, response = promotion_exposure_features(
+            ["2024-01-01", "2024-07-01"], [1, 3]
+        )
+        self.assertAlmostEqual(direct, 2.25)
+        self.assertAlmostEqual(window_mean, 1.5)
+        self.assertAlmostEqual(response, 1.5)
+
+    def test_business_features_have_frozen_interpretations(self) -> None:
+        self.assertAlmostEqual(normalized_trend_coefficient([1, 2, 3, 4]), 1.2)
+        self.assertLess(normalized_trend_coefficient([4, 3, 2, 1]), 0)
+        self.assertAlmostEqual(peak_ratio([0, 2, 4, 0]), 4 / 3)
+
+    def test_seasonality_requires_two_full_cycles(self) -> None:
+        self.assertTrue(np.isnan(seasonal_lag_strength(np.ones(103), period=52)))
+        seasonal = np.tile(np.arange(52, dtype=float), 2)
+        self.assertGreater(seasonal_lag_strength(seasonal, period=52), 0.99)
 
 
 if __name__ == "__main__":
