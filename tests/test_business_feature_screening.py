@@ -10,6 +10,7 @@ from src.business_feature_pipeline import (
     evaluate_shared_transform_k2,
     mark_structural_pareto,
 )
+from src.business_feature_diagnostics import feature_increment_diagnostics
 from src.feature_gate import (
     enumerate_admitted_feature_sets,
     file_sha256,
@@ -147,6 +148,31 @@ class BusinessFeatureScreeningTests(unittest.TestCase):
         self.assertFalse(bool(marked.loc["unstable", "pareto"]))
         self.assertTrue(bool(marked.loc["stable-a", "pareto"]))
         self.assertTrue(bool(marked.loc["stable-b", "pareto"]))
+
+    def test_increment_diagnostics_use_all_paired_subsets(self) -> None:
+        rows = []
+        supplementaries = ("a", "b")
+        for subset in ((), ("a",), ("b",), ("a", "b")):
+            names = ("ADI", "CV2", *subset)
+            rows.append(
+                {
+                    "feature_set": "+".join(names),
+                    "silhouette": 0.20 + 0.10 * ("a" in subset),
+                    "stability_ari_median": 0.60 + 0.05 * ("b" in subset),
+                    "minimum_cluster_jaccard_median": 0.80,
+                    "pareto": subset == ("a", "b"),
+                }
+            )
+        result = feature_increment_diagnostics(
+            pd.DataFrame(rows),
+            anchors=("ADI", "CV2"),
+            supplementaries=supplementaries,
+        ).set_index("feature")
+        self.assertEqual(result.loc["a", "paired_comparisons"], 2)
+        self.assertAlmostEqual(result.loc["a", "median_delta_silhouette"], 0.10)
+        self.assertAlmostEqual(result.loc["a", "median_delta_stability_ari"], 0.0)
+        self.assertAlmostEqual(result.loc["b", "median_delta_silhouette"], 0.0)
+        self.assertAlmostEqual(result.loc["b", "median_delta_stability_ari"], 0.05)
 
 
 if __name__ == "__main__":
