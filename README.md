@@ -72,6 +72,15 @@ python -m src.validate_forecast_pool_v2
 python -m src.business_feature_pipeline --config config/analysis_business_features.yaml
 python -m src.business_feature_diagnostics --config config/analysis_business_features.yaml
 python -m src.business_feature_plots --output-root outputs/business_features_v3
+python -m src.validate_business_features --config config/analysis_business_features.yaml
+```
+
+也可以通过论文研究 Agent 的单一入口执行。默认只验证现有正式输出；`full`
+会严格按上述冻结顺序重跑，并在任一门禁失败时立即停止：
+
+```bash
+python -m src.research_agent --mode validate
+python -m src.research_agent --mode full
 ```
 
 V3.0 正式运行前冻结的协议、字典和证据注册表分别为：

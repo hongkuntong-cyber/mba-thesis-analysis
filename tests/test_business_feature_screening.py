@@ -17,6 +17,7 @@ from src.feature_gate import (
     load_feature_gate,
 )
 from src.stability import fit_ward, subsample_stability
+from src.validate_business_features import _parse_cluster_sizes
 
 
 V3_REGISTRY = (
@@ -44,6 +45,10 @@ def _synthetic_features() -> pd.DataFrame:
 
 
 class BusinessFeatureScreeningTests(unittest.TestCase):
+    def test_cluster_sizes_are_parsed_from_the_selected_grid_row(self) -> None:
+        self.assertEqual(_parse_cluster_sizes("1:120;2:77"), {1: 120, 2: 77})
+        self.assertEqual(_parse_cluster_sizes("1:138;2:59"), {1: 138, 2: 59})
+
     def test_v3_registry_yields_exactly_64_anchor_preserving_sets(self) -> None:
         gate = load_feature_gate(
             V3_REGISTRY, expected_sha256=file_sha256(V3_REGISTRY)

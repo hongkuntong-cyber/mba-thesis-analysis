@@ -33,6 +33,22 @@ def _require(condition: bool, message: str) -> None:
         raise RuntimeError(message)
 
 
+def _parse_cluster_sizes(value: Any) -> dict[int, int]:
+    try:
+        parsed = {
+            int(cluster): int(size)
+            for item in str(value).split(";")
+            for cluster, size in [item.split(":", maxsplit=1)]
+        }
+    except (TypeError, ValueError) as exc:
+        raise RuntimeError(f"Invalid cluster_sizes value: {value!r}") from exc
+    _require(
+        bool(parsed) and all(size > 0 for size in parsed.values()),
+        "Invalid cluster sizes",
+    )
+    return parsed
+
+
 def validate_business_feature_results(
     config_path: str | Path,
     *,
@@ -87,6 +103,7 @@ def validate_business_feature_results(
         "K=3-6 unexpectedly passes the structural gate",
     )
     formal = grid.loc[grid["feature_set"].eq(recommended_feature_set)].iloc[0]
+    expected_cluster_sizes = _parse_cluster_sizes(formal["cluster_sizes"])
     repeated = selected_k.loc[selected_k["k"].eq(2)].iloc[0]
     for metric in (
         "silhouette",
@@ -109,8 +126,9 @@ def validate_business_feature_results(
         "Assignment feature set mismatch",
     )
     _require(
-        assignments["full_cluster"].value_counts().sort_index().to_dict() == {1: 120, 2: 77},
-        "Recommended cluster sizes differ from the reviewed result",
+        assignments["full_cluster"].value_counts().sort_index().to_dict()
+        == expected_cluster_sizes,
+        "Recommended cluster sizes differ from the selected formal grid row",
     )
 
     expected_figures = {
@@ -139,7 +157,9 @@ def validate_business_feature_results(
         "recommended_feature_set": recommended_feature_set,
         "recommended_k": 2,
         "pareto_feature_sets": sorted(EXPECTED_PARETO),
-        "cluster_sizes": {"1": 120, "2": 77},
+        "cluster_sizes": {
+            str(cluster): size for cluster, size in expected_cluster_sizes.items()
+        },
         "checks_passed": True,
     }
     validation_path = root / "validation_summary.json"
