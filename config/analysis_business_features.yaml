@@ -1,0 +1,69 @@
+project:
+  name: mba-thesis-analysis-business-features
+  protocol_version: "3.0"
+  analysis_mode: retrospective_method_development
+  seed: 42
+  timezone: UTC
+
+input:
+  workbook: "01_原始数据/德国Amazon_SKU周度数据_原始合并版_未清洗 (1).xlsx"
+  metadata_columns: 8
+  sku_column: "SKU"
+  country: "德国"
+  expected_sha256: "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6"
+  calendar:
+    week_start: monday
+    merge_same_iso_week_fragments: true
+    minimum_covered_days: 7
+
+cleaning_v2:
+  zero_run_min: 2
+  zero_run_max: 12
+  context_window_max: 12
+  minimum_positive_share: 0.75
+  minimum_positive_weeks_each_side: 3
+  probability_cutoff: 0.05
+  correct_leading_or_trailing_runs: false
+
+samples:
+  low_information_positive_weeks: 2
+  main_min_positive_weeks: 5
+  robustness_min_positive_weeks: 10
+  seasonality_min_observed_weeks: 104
+
+features:
+  evidence_registry: protocol/feature_evidence_registry_v3.csv
+  evidence_registry_sha256: "12283853551a97c65d5dd5cda121dea0fa581b57c1a860afbe6258755f7d4db0"
+  required_anchors: [ADI, CV2]
+  selection_source: evidence_registry_only
+  long_history_sensitivity: [seasonality_idx]
+  technical_sensitivity: [approx_entropy]
+  profile_only: [promo_weight_ratio, promo_window_weight_mean, mean_sales, median_sales, std_sales, zero_ratio]
+
+preprocessing:
+  power_transform: yeo-johnson
+  standardize: true
+
+clustering:
+  primary_algorithm: ward
+  operational_k: 2
+  post_selection_sensitivity_k_values: [2, 3, 4, 5, 6]
+  stability:
+    repetitions: 500
+    debug_repetitions: 10
+    sample_fraction: 0.80
+    replace: false
+  kmeans_robustness:
+    n_init: 100
+  structural_gates:
+    minimum_cluster_jaccard_median: 0.75
+    minimum_cluster_size: 10
+    minimum_cluster_share: 0.05
+  feature_selection:
+    rule: pareto_then_robustness_and_business_review
+    no_composite_score: true
+    benchmark_features: [ADI, CV2]
+
+outputs:
+  root: outputs/business_features_v3
+  report: reports/business_feature_screening_v3.md

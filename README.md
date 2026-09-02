@@ -4,53 +4,16 @@
 
 研究以“严格、可验证、可复现”为原则。正式方法已冻结在 `protocol/`，任何协议调整均以带版本号的修订文件保留，不能根据结果反向改写清洗规则、候选特征、K 值范围或评价指标。
 
-## 理论先行 V2（当前分支）
+## 当前结论
 
-`analysis/theory-first-feature-gate` 将早期“12 项候选长名单”改造成失败关闭的文献准入门。候选数量不再预设：证据登记表目前只准入 `ADI`、`CV2`、`approx_entropy` 和 `trailing_zero_share`，代码只允许枚举由这 4 项形成、且必须包含两个理论锚点的 4 个组合。
-
-同一工作簿的旧结果已经被查看，因此本分支对现有数据的运行只能称为“回顾性方法开发”，不能重新命名为确认性检验。未来新增、未查看数据才可按冻结规则执行确认性复跑。
-
-先运行快速工程检查（单独写入 debug 目录）：
-
-```bash
-python -m src.theory_first_pipeline --config config/analysis_theory_first.yaml --debug
-```
-
-再运行冻结的 500 次稳定性分析：
-
-```bash
-python -m src.theory_first_pipeline --config config/analysis_theory_first.yaml
-```
-
-正式主网格完成后，运行不参与重选的 Raw/V2 与样本门槛诊断：
-
-```bash
-python -m src.theory_first_diagnostics --config config/analysis_theory_first.yaml
-```
-
-最后执行输出一致性校验：
-
-```bash
-python -m src.validate_theory_first --config config/analysis_theory_first.yaml
-```
-
-新版证据与方法入口：
-
-- [`protocol/amendment_v2.0_theory_first_feature_gate.md`](protocol/amendment_v2.0_theory_first_feature_gate.md)
-- [`protocol/feature_evidence_registry.csv`](protocol/feature_evidence_registry.csv)
-- [`protocol/feature_dictionary_v2.md`](protocol/feature_dictionary_v2.md)
-- [`protocol/amendment_v2.1_k2_feature_selection.md`](protocol/amendment_v2.1_k2_feature_selection.md)
-- [`config/analysis_theory_first.yaml`](config/analysis_theory_first.yaml)
-
-## 历史 V1 结果（保留用于复现）
-
-- 完整期间主聚类：`ADI + CV2 + nonzero_mean + acf1`，Ward `K=2`，主样本 N=197。
+- 最新 V3.0 业务导向特征筛选枚举了固定包含 `ADI + CV2` 的 64 个组合；建议完整期间主聚类继续使用 `ADI + CV2 + nonzero_mean + acf1`，Ward `K=2`，主样本 N=197。
+- V3.0 的第二个 Pareto 候选为 `ADI + CV2 + peak_ratio`，因重抽样、样本门槛和算法一致性更弱，仅保留为敏感性对照。
 - `K=3` 未通过预定稳定性、Raw/V2 一致性和独立画像条件，因此 SBA/TSB 未进入正式模型池。
 - 首个预测起点前冻结方案：`ADI + CV2 + std_sales`，Ward `K=2`，N=130。
 - ADIDA2 已作为正式核心模型检验，但未通过生产路由门槛；建议对 10 个重复改善候选做影子运行。
 - 最终留出中，统一 MA4_proxy 的销量加权 WAPE 为 0.7760，轻量分层为 0.7745；差异很小，当前不支持全面部署复杂路由。
 
-完整证据、失败结果和限制见 [`reports/final_report.md`](reports/final_report.md)。
+V3.0 聚类证据见 [`reports/business_feature_review_v3.md`](reports/business_feature_review_v3.md)；既有预测、路由和最终留出证据见 [`reports/final_report.md`](reports/final_report.md)。V3.0 使用的是已经查看过的历史数据，属于回顾性方法开发，不应表述为新增样本确认。
 
 ## 复现环境
 
@@ -76,7 +39,7 @@ Windows PowerShell 激活命令为：
 
 ## 一条命令运行
 
-历史 V1 端到端运行：
+正式端到端运行：
 
 ```bash
 python -m src.pipeline --config config/analysis.yaml
@@ -102,6 +65,29 @@ python -m src.validate_forecast_pool_v2
 ```
 
 其方法在运行前冻结于 `protocol/forecast_pool_v2_exploratory_protocol.md`。由于 V1 的最终窗口已经查看，V2 输出只能作为探索性证据，不能重新称为独立确认性留出。
+
+运行 V3.0 业务导向候选池、后选择敏感性和图形：
+
+```bash
+python -m src.business_feature_pipeline --config config/analysis_business_features.yaml
+python -m src.business_feature_diagnostics --config config/analysis_business_features.yaml
+python -m src.business_feature_plots --output-root outputs/business_features_v3
+python -m src.validate_business_features --config config/analysis_business_features.yaml
+```
+
+也可以通过论文研究 Agent 的单一入口执行。默认只验证现有正式输出；`full`
+会严格按上述冻结顺序重跑，并在任一门禁失败时立即停止：
+
+```bash
+python -m src.research_agent --mode validate
+python -m src.research_agent --mode full
+```
+
+V3.0 正式运行前冻结的协议、字典和证据注册表分别为：
+
+- `protocol/amendment_v3.0_business_aware_feature_screening.md`
+- `protocol/feature_dictionary_v3.md`
+- `protocol/feature_evidence_registry_v3.csv`
 
 端到端正式运行会执行 500 次 80% 无放回子样本稳定性计算，耗时明显高于测试。原始文件只读，正式输出写入 `outputs/` 和 `reports/`。
 

@@ -1,0 +1,19 @@
+{
+  "status": "share_with_caveats",
+  "analysis_mode": "retrospective_method_development",
+  "confirmatory": false,
+  "registry_sha256": "12283853551a97c65d5dd5cda121dea0fa581b57c1a860afbe6258755f7d4db0",
+  "feature_combinations": 64,
+  "main_sample_n": 197,
+  "recommended_feature_set": "ADI+CV2+acf1+nonzero_mean",
+  "recommended_k": 2,
+  "pareto_feature_sets": [
+    "ADI+CV2+acf1+nonzero_mean",
+    "ADI+CV2+peak_ratio"
+  ],
+  "cluster_sizes": {
+    "1": 120,
+    "2": 77
+  },
+  "checks_passed": true
+}
