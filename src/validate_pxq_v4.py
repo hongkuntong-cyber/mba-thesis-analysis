@@ -37,10 +37,12 @@ REQUIRED_OUTPUTS = [
 
 
 def _json_write(path: Path, payload: dict[str, Any]) -> None:
-    path.write_text(
+    temporary = path.with_suffix(f"{path.suffix}.tmp")
+    temporary.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2, default=str),
         encoding="utf-8",
     )
+    temporary.replace(path)
 
 
 def _record(checks: list[dict[str, Any]], name: str, passed: bool, detail: Any) -> None:
@@ -118,6 +120,22 @@ def validate_pxq_outputs(config_path: str | Path) -> dict[str, Any]:
     audit = pd.read_csv(output_root / "rolling_origin_audits.csv")
     paired = pd.read_csv(output_root / "paired_pxq_comparisons.csv")
     gate = pd.read_csv(output_root / "pxq_predictability_gate.csv")
+    outcome = json.loads((output_root / "pxq_validation_outcome.json").read_text(encoding="utf-8"))
+
+    expected_prediction_rows = int(outcome["prediction_rows"])
+    observed_horizons = set(predictions["horizon_label"].unique())
+    expected_horizons = {str(item["label"]) for item in config["forecast"]["horizons"]}
+    _record(
+        checks,
+        "prediction_detail_is_complete",
+        len(predictions) == expected_prediction_rows and observed_horizons == expected_horizons,
+        {
+            "observed_rows": int(len(predictions)),
+            "expected_rows": expected_prediction_rows,
+            "observed_horizons": sorted(observed_horizons),
+            "expected_horizons": sorted(expected_horizons),
+        },
+    )
 
     formal_models = [
         config["forecast"]["primary_model"],
@@ -203,13 +221,18 @@ def validate_pxq_outputs(config_path: str | Path) -> dict[str, Any]:
         and mase_counts.eq(len(formal_models)).all()
         and common_mase["mase"].notna().all()
     )
+    row_identity = ["horizon_label", "origin_index", "sku", "model"]
+    prediction_keys = set(map(tuple, predictions[row_identity].itertuples(index=False, name=None)))
+    common_keys = set(map(tuple, common[row_identity].itertuples(index=False, name=None)))
+    common_is_detail_subset = common_keys.issubset(prediction_keys)
     _record(
         checks,
         "five_model_common_samples_are_exact",
-        common_ok and common_mase_ok,
+        common_ok and common_mase_ok and common_is_detail_subset,
         {
             "common_keys": int(len(common_sets)),
             "common_mase_keys": int(len(mase_sets)),
+            "common_rows_are_prediction_subset": common_is_detail_subset,
         },
     )
 
@@ -275,7 +298,10 @@ def validate_pxq_outputs(config_path: str | Path) -> dict[str, Any]:
             manifest_rows.append(
                 {"relative_path": str(path.relative_to(project_root)), "sha256": digest}
             )
-    pd.DataFrame(manifest_rows).to_csv(output_root / "manifest_sha256.csv", index=False)
+    manifest_path = output_root / "manifest_sha256.csv"
+    manifest_temporary = manifest_path.with_suffix(f"{manifest_path.suffix}.tmp")
+    pd.DataFrame(manifest_rows).to_csv(manifest_temporary, index=False)
+    manifest_temporary.replace(manifest_path)
     if not valid:
         failed = [item["check"] for item in checks if not item["passed"]]
         raise RuntimeError(f"V4.0 output validation failed: {failed}")

@@ -27,10 +27,20 @@ PROFILE_NAMES = {
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
+    temporary = path.with_suffix(f"{path.suffix}.tmp")
+    temporary.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2, default=str),
         encoding="utf-8",
     )
+    temporary.replace(path)
+
+
+def _write_csv(path: Path, frame: pd.DataFrame) -> None:
+    """Write a result atomically so a partial CSV cannot pass as an output."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(f"{path.suffix}.tmp")
+    frame.to_csv(temporary, index=False)
+    temporary.replace(path)
 
 
 def _attach_profiles(frame: pd.DataFrame) -> pd.DataFrame:
@@ -346,7 +356,7 @@ def run_pxq_validation(config_path: str | Path) -> dict[str, Any]:
         ),
     }
     for name, frame in summaries.items():
-        frame.to_csv(output_root / f"{name}.csv", index=False)
+        _write_csv(output_root / f"{name}.csv", frame)
 
     baselines = list(config["forecast"]["comparison_models"])
     paired = _paired_comparisons(
@@ -391,18 +401,18 @@ def run_pxq_validation(config_path: str | Path) -> dict[str, Any]:
         wins_frames.append(wins)
     model_win_table = pd.concat(wins_frames, ignore_index=True)
 
-    predictions.to_csv(output_root / "rolling_origin_predictions.csv", index=False)
-    assignments.to_csv(output_root / "rolling_origin_cluster_assignments.csv", index=False)
-    audits.to_csv(output_root / "rolling_origin_audits.csv", index=False)
-    common.to_csv(output_root / "five_model_common_sample.csv", index=False)
-    common_mase.to_csv(output_root / "five_model_common_mase_sample.csv", index=False)
-    paired.to_csv(output_root / "paired_pxq_comparisons.csv", index=False)
-    head_to_head.to_csv(output_root / "origin_pxq_head_to_head.csv", index=False)
-    gate.to_csv(output_root / "pxq_predictability_gate.csv", index=False)
-    sku_head_to_head.to_csv(output_root / "sku_origin_pxq_head_to_head.csv", index=False)
-    pxq_rows.to_csv(output_root / "pxq_prediction_components.csv", index=False)
-    pxq_components.to_csv(output_root / "pxq_component_summary.csv", index=False)
-    model_win_table.to_csv(output_root / "model_wins_by_sku.csv", index=False)
+    _write_csv(output_root / "rolling_origin_predictions.csv", predictions)
+    _write_csv(output_root / "rolling_origin_cluster_assignments.csv", assignments)
+    _write_csv(output_root / "rolling_origin_audits.csv", audits)
+    _write_csv(output_root / "five_model_common_sample.csv", common)
+    _write_csv(output_root / "five_model_common_mase_sample.csv", common_mase)
+    _write_csv(output_root / "paired_pxq_comparisons.csv", paired)
+    _write_csv(output_root / "origin_pxq_head_to_head.csv", head_to_head)
+    _write_csv(output_root / "pxq_predictability_gate.csv", gate)
+    _write_csv(output_root / "sku_origin_pxq_head_to_head.csv", sku_head_to_head)
+    _write_csv(output_root / "pxq_prediction_components.csv", pxq_rows)
+    _write_csv(output_root / "pxq_component_summary.csv", pxq_components)
+    _write_csv(output_root / "model_wins_by_sku.csv", model_win_table)
 
     best_common = summaries["common_by_horizon_model"].sort_values(
         ["horizon_label", "horizon_total_wape", "mean_mase", "model"]
