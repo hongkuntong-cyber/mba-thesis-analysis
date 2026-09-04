@@ -1,0 +1,13 @@
+horizon_label,horizon_weeks,scope,wins_vs_MA4_proxy,paired_ci_high_vs_MA4_proxy,wins_vs_Naive,paired_ci_high_vs_Naive,pxq_value_supported
+30_day_proxy,4,all,4,0.574044743664153,4,0.28576318656337685,False
+30_day_proxy,4,low_information,4,-0.015020517676767665,4,0.18553661616161568,False
+30_day_proxy,4,relative_active_persistent,4,0.5926018186691219,5,0.4202288580272115,False
+30_day_proxy,4,low_frequency_sparse,1,0.37481687058675334,4,1.328089209456224,False
+60_day_proxy,9,all,3,1.338093262694348,4,-0.40425193458191705,False
+60_day_proxy,9,low_information,3,1.8235648148148142,3,0.3090740740740737,False
+60_day_proxy,9,relative_active_persistent,1,2.7085463580983062,3,-1.2180096528025464,False
+60_day_proxy,9,low_frequency_sparse,3,0.7023057316646693,4,0.458595029818064,False
+90_day_proxy,13,all,1,2.279121074868003,5,-1.6792019140841117,False
+90_day_proxy,13,low_information,3,4.483694306930691,6,0.8659000275027483,False
+90_day_proxy,13,relative_active_persistent,1,4.189776164209893,4,-1.457444369925719,False
+90_day_proxy,13,low_frequency_sparse,4,0.4465114803828411,6,1.248651630872712,False
