@@ -1,4 +1,6 @@
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import numpy as np
 import pandas as pd
@@ -9,12 +11,26 @@ from src.evaluation import (
 )
 from src.forecasting import forecast_pxq
 from src.pxq_validation_v4 import (
+    _exclusive_output_lock,
     _predictability_gate,
     common_model_sample,
 )
 
 
 class PxqValidationTests(unittest.TestCase):
+    def test_formal_output_lock_blocks_concurrent_or_stale_writers(self) -> None:
+        with TemporaryDirectory() as directory:
+            output = Path(directory)
+            with _exclusive_output_lock(output):
+                with self.assertRaises(RuntimeError):
+                    with _exclusive_output_lock(output):
+                        pass
+            self.assertFalse((output / ".pxq_validation.lock").exists())
+            (output / "unfinished.csv.tmp").write_text("partial", encoding="utf-8")
+            with self.assertRaises(RuntimeError):
+                with _exclusive_output_lock(output):
+                    pass
+
     def test_pxq_uses_recent_occurrence_and_expanding_positive_size(self) -> None:
         values = np.asarray([8, 0, 4, 0, 0, 12, 0, 0], dtype=float)
         forecast, parameters = forecast_pxq(

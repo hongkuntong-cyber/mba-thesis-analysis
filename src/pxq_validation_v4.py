@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -27,7 +29,7 @@ PROFILE_NAMES = {
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(f"{path.suffix}.tmp")
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
     temporary.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2, default=str),
         encoding="utf-8",
@@ -38,9 +40,29 @@ def _write_json(path: Path, payload: dict[str, Any]) -> None:
 def _write_csv(path: Path, frame: pd.DataFrame) -> None:
     """Write a result atomically so a partial CSV cannot pass as an output."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(f"{path.suffix}.tmp")
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
     frame.to_csv(temporary, index=False)
     temporary.replace(path)
+
+
+@contextmanager
+def _exclusive_output_lock(output_root: Path):
+    """Prevent concurrent formal runs from writing the same result directory."""
+    output_root.mkdir(parents=True, exist_ok=True)
+    stale = sorted(path.name for path in output_root.iterdir() if path.name.endswith(".tmp"))
+    if stale:
+        raise RuntimeError(f"Stale partial output exists; inspect before rerun: {stale}")
+    lock_path = output_root / ".pxq_validation.lock"
+    try:
+        descriptor = os.open(lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError as error:
+        raise RuntimeError(f"Another V4.0 run may already be writing {output_root}") from error
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
+            handle.write(f"pid={os.getpid()}\n")
+        yield
+    finally:
+        lock_path.unlink(missing_ok=True)
 
 
 def _attach_profiles(frame: pd.DataFrame) -> pd.DataFrame:
@@ -247,7 +269,7 @@ def _sku_head_to_head(common: pd.DataFrame, baselines: list[str]) -> pd.DataFram
     return pd.concat(rows, ignore_index=True)
 
 
-def run_pxq_validation(config_path: str | Path) -> dict[str, Any]:
+def _run_pxq_validation_unlocked(config_path: str | Path) -> dict[str, Any]:
     config_file = Path(config_path).resolve()
     project_root = config_file.parent.parent
     config = load_config(config_file)
@@ -444,6 +466,15 @@ def run_pxq_validation(config_path: str | Path) -> dict[str, Any]:
     }
     _write_json(output_root / "pxq_validation_outcome.json", outcome)
     return outcome
+
+
+def run_pxq_validation(config_path: str | Path) -> dict[str, Any]:
+    config_file = Path(config_path).resolve()
+    project_root = config_file.parent.parent
+    config = load_config(config_file)
+    output_root = project_root / config["outputs"]["root"]
+    with _exclusive_output_lock(output_root):
+        return _run_pxq_validation_unlocked(config_file)
 
 
 def main() -> None:

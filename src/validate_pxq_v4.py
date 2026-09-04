@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -37,7 +38,7 @@ REQUIRED_OUTPUTS = [
 
 
 def _json_write(path: Path, payload: dict[str, Any]) -> None:
-    temporary = path.with_suffix(f"{path.suffix}.tmp")
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
     temporary.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2, default=str),
         encoding="utf-8",
@@ -95,6 +96,16 @@ def validate_pxq_outputs(config_path: str | Path) -> dict[str, Any]:
     config = load_config(config_file)
     output_root = project_root / config["outputs"]["root"]
     checks: list[dict[str, Any]] = []
+
+    partial_outputs = sorted(
+        path.name for path in output_root.iterdir() if path.name.endswith(".tmp")
+    ) if output_root.exists() else []
+    _record(
+        checks,
+        "no_partial_output_files_remain",
+        not partial_outputs,
+        {"partial_outputs": partial_outputs},
+    )
 
     missing = [name for name in REQUIRED_OUTPUTS if not (output_root / name).is_file()]
     _record(checks, "required_outputs_exist", not missing, {"missing": missing})
@@ -299,7 +310,9 @@ def validate_pxq_outputs(config_path: str | Path) -> dict[str, Any]:
                 {"relative_path": str(path.relative_to(project_root)), "sha256": digest}
             )
     manifest_path = output_root / "manifest_sha256.csv"
-    manifest_temporary = manifest_path.with_suffix(f"{manifest_path.suffix}.tmp")
+    manifest_temporary = manifest_path.with_name(
+        f".{manifest_path.name}.{os.getpid()}.tmp"
+    )
     pd.DataFrame(manifest_rows).to_csv(manifest_temporary, index=False)
     manifest_temporary.replace(manifest_path)
     if not valid:
