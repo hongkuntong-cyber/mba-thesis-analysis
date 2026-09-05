@@ -1,0 +1,146 @@
+{
+  "valid": true,
+  "protocol_version": "4.1",
+  "checks_passed": 13,
+  "checks_total": 13,
+  "checks": [
+    {
+      "check": "no_partial_output_files_remain",
+      "passed": true,
+      "detail": {
+        "partial_outputs": []
+      }
+    },
+    {
+      "check": "required_outputs_exist",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "check": "raw_sha256_matches_protocol",
+      "passed": true,
+      "detail": {
+        "actual": "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6",
+        "expected": "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6"
+      }
+    },
+    {
+      "check": "v4_dependency_and_retrospective_boundary",
+      "passed": true,
+      "detail": {
+        "v4_protocol": "4.0",
+        "current_protocol": "4.1",
+        "confirmatory": false
+      }
+    },
+    {
+      "check": "six_frozen_nonoverlapping_origins_per_horizon",
+      "passed": true,
+      "detail": {
+        "30_day_proxy": {
+          "origins": [
+            "2026-02-16",
+            "2026-03-16",
+            "2026-04-13",
+            "2026-05-11",
+            "2026-06-08",
+            "2026-07-06"
+          ],
+          "passed": true
+        },
+        "60_day_proxy": {
+          "origins": [
+            "2025-07-21",
+            "2025-09-22",
+            "2025-11-24",
+            "2026-01-26",
+            "2026-03-30",
+            "2026-06-01"
+          ],
+          "passed": true
+        },
+        "90_day_proxy": {
+          "origins": [
+            "2025-02-03",
+            "2025-05-05",
+            "2025-08-04",
+            "2025-11-03",
+            "2026-02-02",
+            "2026-05-04"
+          ],
+          "passed": true
+        }
+      }
+    },
+    {
+      "check": "probability_formulas_and_bounds_reconcile",
+      "passed": true,
+      "detail": {
+        "probabilities_in_unit_interval": true,
+        "iid_conversion_matches": true,
+        "block_counts_valid": true
+      }
+    },
+    {
+      "check": "binary_target_and_row_losses_reconcile",
+      "passed": true,
+      "detail": {
+        "target_matches_raw_period_total": true,
+        "brier_matches": true
+      }
+    },
+    {
+      "check": "four_method_common_sample_is_exact",
+      "passed": true,
+      "detail": {
+        "observed_sku_origins": 2557,
+        "reported_sku_origins": 2557,
+        "common_is_detail_subset": true
+      }
+    },
+    {
+      "check": "published_probability_summary_reconciles",
+      "passed": true,
+      "detail": {
+        "rows": 12
+      }
+    },
+    {
+      "check": "reliability_bins_cover_common_predictions",
+      "passed": true,
+      "detail": {
+        "observed_rows": 10228,
+        "expected_rows": 10228,
+        "valid_bounds": true
+      }
+    },
+    {
+      "check": "paired_origin_and_gate_structures_are_complete",
+      "passed": true,
+      "detail": {
+        "paired_rows": 9,
+        "head_rows": 54,
+        "gate_rows": 3
+      }
+    },
+    {
+      "check": "new_weekly_rates_reconcile_to_v4_when_available",
+      "passed": true,
+      "detail": {
+        "v4_nonmissing_p_rows_compared": 2279,
+        "v4_p_max_absolute_difference": 1.1102230246251565e-16,
+        "reconciled": true
+      }
+    },
+    {
+      "check": "outcome_row_count_reconciles",
+      "passed": true,
+      "detail": {
+        "reported": 10651,
+        "observed": 10651
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+horizon_label,horizon_weeks,method,n_sku_origins,n_unique_skus
+30_day_proxy,4,Overall_block_frequency,882,147
+30_day_proxy,4,PXQ_independence,882,147
+30_day_proxy,4,Profile_block_frequency,882,147
+30_day_proxy,4,SKU_block_frequency,835,147
+60_day_proxy,9,Overall_block_frequency,884,242
+60_day_proxy,9,PXQ_independence,884,242
+60_day_proxy,9,Profile_block_frequency,884,242
+60_day_proxy,9,SKU_block_frequency,837,242
+90_day_proxy,13,Overall_block_frequency,932,242
+90_day_proxy,13,PXQ_independence,932,242
+90_day_proxy,13,Profile_block_frequency,932,242
+90_day_proxy,13,SKU_block_frequency,885,195
