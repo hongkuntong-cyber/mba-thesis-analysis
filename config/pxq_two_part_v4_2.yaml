@@ -1,0 +1,83 @@
+project:
+  name: mba-thesis-analysis-cluster-shrunk-two-part
+  protocol_version: "4.2"
+  analysis_mode: retrospective_method_development
+  seed: 42
+  timezone: UTC
+
+input:
+  workbook: "01_原始数据/德国Amazon_SKU周度数据_原始合并版_未清洗 (1).xlsx"
+  metadata_columns: 8
+  sku_column: "SKU"
+  expected_sha256: "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6"
+  calendar:
+    minimum_covered_days: 7
+  v4_predictions: "outputs/pxq_validation_v4/rolling_origin_predictions.csv"
+  v4_outcome: "outputs/pxq_validation_v4/pxq_validation_outcome.json"
+  v4_1_probability_predictions: "outputs/pxq_probability_v4_1/probability_predictions.csv"
+  v4_1_outcome: "outputs/pxq_probability_v4_1/probability_validation_outcome.json"
+
+cleaning_v2:
+  zero_run_min: 2
+  zero_run_max: 12
+  context_window_max: 12
+  minimum_positive_share: 0.75
+  minimum_positive_weeks_each_side: 3
+  probability_cutoff: 0.05
+  correct_leading_or_trailing_runs: false
+
+two_part:
+  horizons:
+    - label: 30_day_proxy
+      weeks: 4
+      approximate_days: 28
+      origins: 6
+    - label: 60_day_proxy
+      weeks: 9
+      approximate_days: 63
+      origins: 6
+    - label: 90_day_proxy
+      weeks: 13
+      approximate_days: 91
+      origins: 6
+  training_lookback_weeks: 52
+  block_alignment: backward_from_origin
+  block_overlap: false
+  leave_one_sku_out_reference: true
+  minimum_peer_blocks: 4
+  primary_prior_equivalent_blocks: 4
+  sensitivity_prior_equivalent_blocks: [1, 8]
+  profile_fallback: enterprise_leave_one_out
+  probability_methods:
+    - ProfileShrink_L4
+    - EnterpriseShrink_L4
+    - SKU_recent_block
+    - PXQ_independence
+    - ProfileShrink_L1
+    - ProfileShrink_L8
+  expected_quantity_methods:
+    - ProfileShrink_L4_expected
+    - EnterpriseShrink_L4_expected
+    - SKU_recent_block_expected
+    - PXQ
+    - MA4_proxy
+    - Naive
+    - SES
+    - ADIDA2
+
+evaluation:
+  primary_probability_metric: brier_score
+  primary_quantity_metric: horizon_total_abs_error
+  reliability_bin_edges: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+  numerical_log_loss_epsilon: 1.0e-15
+  paired_bootstrap_repetitions: 1000
+  minimum_winning_origins: 4
+  maximum_absolute_calibration_gap: 0.05
+  probability_cluster_value_baseline: EnterpriseShrink_L4
+  probability_replacement_baseline: PXQ_independence
+  quantity_required_baselines: [MA4_proxy, Naive]
+  quantity_context_models: [PXQ, SES, ADIDA2]
+
+outputs:
+  root: outputs/pxq_two_part_v4_2
+  report: reports/pxq_two_part_v4_2.md

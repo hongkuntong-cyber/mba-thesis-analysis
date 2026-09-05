@@ -54,6 +54,8 @@ def run_backtest(
     calendar_anchor: pd.Timestamp,
     adida_aggregation_weeks: int,
     include_sba: bool = False,
+    include_pxq: bool = False,
+    pxq_lookback_weeks: int | None = None,
 ) -> BacktestResult:
     prediction_rows: list[dict[str, Any]] = []
     assignment_rows: list[dict[str, Any]] = []
@@ -96,6 +98,7 @@ def run_backtest(
         skipped_model_error = 0
         unavailable_adida = 0
         unavailable_sba = 0
+        unavailable_pxq = 0
         expected_test_weeks = pd.date_range(origin, periods=horizon, freq="7D")
 
         forecast_pool = train_features["sku"].astype(str).tolist()
@@ -128,6 +131,8 @@ def run_backtest(
                     calendar_anchor=calendar_anchor,
                     adida_aggregation_weeks=adida_aggregation_weeks,
                     include_sba=include_sba,
+                    include_pxq=include_pxq,
+                    pxq_lookback_weeks=pxq_lookback_weeks,
                 )
             except ValueError:
                 skipped_model_error += 1
@@ -136,6 +141,8 @@ def run_backtest(
                 unavailable_adida += 1
             if include_sba and "SBA" not in forecasts:
                 unavailable_sba += 1
+            if include_pxq and "PXQ" not in forecasts:
+                unavailable_pxq += 1
             scale = mase_scale(train_values)
             actual = test_sku["sales"].to_numpy(dtype=float)
             forecasted_skus += 1
@@ -172,6 +179,8 @@ def run_backtest(
             }
         if include_sba:
             audit_row["unavailable_sba"] = unavailable_sba
+        if include_pxq:
+            audit_row["unavailable_pxq"] = unavailable_pxq
         audit_rows.append(audit_row)
 
     return BacktestResult(

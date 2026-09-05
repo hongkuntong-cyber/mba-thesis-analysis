@@ -1,0 +1,4 @@
+horizon_label,horizon_weeks,baseline,winning_origins,minimum_winning_origins,paired_ci_high,calibration_gap,maximum_absolute_calibration_gap,origin_gate_passed,paired_gate_passed,calibration_gate_passed,historical_probability_value_supported
+30_day_proxy,4,Overall_block_frequency,6,4,-0.04668057851348569,-0.06031998502994018,0.05,True,True,False,False
+60_day_proxy,9,Overall_block_frequency,5,4,0.019687035964610886,-0.06254577230929836,0.05,True,False,False,False
+90_day_proxy,13,Overall_block_frequency,6,4,-0.044047516177258404,-0.07608731006516278,0.05,True,True,False,False

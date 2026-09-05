@@ -1,0 +1,172 @@
+{
+  "analysis_mode": "retrospective_method_development",
+  "confirmatory": false,
+  "protocol_version": "4.0",
+  "raw_sha256": "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6",
+  "unique_skus": 242,
+  "origin_map": {
+    "30_day_proxy": [
+      "2026-02-16",
+      "2026-03-16",
+      "2026-04-13",
+      "2026-05-11",
+      "2026-06-08",
+      "2026-07-06"
+    ],
+    "60_day_proxy": [
+      "2025-07-21",
+      "2025-09-22",
+      "2025-11-24",
+      "2026-01-26",
+      "2026-03-30",
+      "2026-06-01"
+    ],
+    "90_day_proxy": [
+      "2025-02-03",
+      "2025-05-05",
+      "2025-08-04",
+      "2025-11-03",
+      "2026-02-02",
+      "2026-05-04"
+    ]
+  },
+  "models": [
+    "PXQ",
+    "MA4_proxy",
+    "Naive",
+    "SES",
+    "ADIDA2"
+  ],
+  "prediction_rows": 15957,
+  "common_sku_origins": 2279,
+  "common_mase_sku_origins": 2279,
+  "best_common_model_by_horizon_total_wape": {
+    "30_day_proxy": "SES",
+    "60_day_proxy": "PXQ",
+    "90_day_proxy": "MA4_proxy"
+  },
+  "pxq_value_supported": [
+    {
+      "horizon_label": "30_day_proxy",
+      "horizon_weeks": 4,
+      "scope": "all",
+      "wins_vs_MA4_proxy": 4,
+      "paired_ci_high_vs_MA4_proxy": 0.5740447437,
+      "wins_vs_Naive": 4,
+      "paired_ci_high_vs_Naive": 0.2857631866,
+      "pxq_value_supported": false
+    },
+    {
+      "horizon_label": "30_day_proxy",
+      "horizon_weeks": 4,
+      "scope": "low_information",
+      "wins_vs_MA4_proxy": 4,
+      "paired_ci_high_vs_MA4_proxy": -0.0150205177,
+      "wins_vs_Naive": 4,
+      "paired_ci_high_vs_Naive": 0.1855366162,
+      "pxq_value_supported": false
+    },
+    {
+      "horizon_label": "30_day_proxy",
+      "horizon_weeks": 4,
+      "scope": "relative_active_persistent",
+      "wins_vs_MA4_proxy": 4,
+      "paired_ci_high_vs_MA4_proxy": 0.5926018187,
+      "wins_vs_Naive": 5,
+      "paired_ci_high_vs_Naive": 0.420228858,
+      "pxq_value_supported": false
+    },
+    {
+      "horizon_label": "30_day_proxy",
+      "horizon_weeks": 4,
+      "scope": "low_frequency_sparse",
+      "wins_vs_MA4_proxy": 1,
+      "paired_ci_high_vs_MA4_proxy": 0.3748168706,
+      "wins_vs_Naive": 4,
+      "paired_ci_high_vs_Naive": 1.3280892095,
+      "pxq_value_supported": false
+    },
+    {
+      "horizon_label": "60_day_proxy",
+      "horizon_weeks": 9,
+      "scope": "all",
+      "wins_vs_MA4_proxy": 3,
+      "paired_ci_high_vs_MA4_proxy": 1.3380932627,
+      "wins_vs_Naive": 4,
+      "paired_ci_high_vs_Naive": -0.4042519346,
+      "pxq_value_supported": false
+    },
+    {
+      "horizon_label": "60_day_proxy",
+      "horizon_weeks": 9,
+      "scope": "low_information",
+      "wins_vs_MA4_proxy": 3,
+      "paired_ci_high_vs_MA4_proxy": 1.8235648148,
+      "wins_vs_Naive": 3,
+      "paired_ci_high_vs_Naive": 0.3090740741,
+      "pxq_value_supported": false
+    },
+    {
+      "horizon_label": "60_day_proxy",
+      "horizon_weeks": 9,
+      "scope": "relative_active_persistent",
+      "wins_vs_MA4_proxy": 1,
+      "paired_ci_high_vs_MA4_proxy": 2.7085463581,
+      "wins_vs_Naive": 3,
+      "paired_ci_high_vs_Naive": -1.2180096528,
+      "pxq_value_supported": false
+    },
+    {
+      "horizon_label": "60_day_proxy",
+      "horizon_weeks": 9,
+      "scope": "low_frequency_sparse",
+      "wins_vs_MA4_proxy": 3,
+      "paired_ci_high_vs_MA4_proxy": 0.7023057317,
+      "wins_vs_Naive": 4,
+      "paired_ci_high_vs_Naive": 0.4585950298,
+      "pxq_value_supported": false
+    },
+    {
+      "horizon_label": "90_day_proxy",
+      "horizon_weeks": 13,
+      "scope": "all",
+      "wins_vs_MA4_proxy": 1,
+      "paired_ci_high_vs_MA4_proxy": 2.2791210749,
+      "wins_vs_Naive": 5,
+      "paired_ci_high_vs_Naive": -1.6792019141,
+      "pxq_value_supported": false
+    },
+    {
+      "horizon_label": "90_day_proxy",
+      "horizon_weeks": 13,
+      "scope": "low_information",
+      "wins_vs_MA4_proxy": 3,
+      "paired_ci_high_vs_MA4_proxy": 4.4836943069,
+      "wins_vs_Naive": 6,
+      "paired_ci_high_vs_Naive": 0.8659000275,
+      "pxq_value_supported": false
+    },
+    {
+      "horizon_label": "90_day_proxy",
+      "horizon_weeks": 13,
+      "scope": "relative_active_persistent",
+      "wins_vs_MA4_proxy": 1,
+      "paired_ci_high_vs_MA4_proxy": 4.1897761642,
+      "wins_vs_Naive": 4,
+      "paired_ci_high_vs_Naive": -1.4574443699,
+      "pxq_value_supported": false
+    },
+    {
+      "horizon_label": "90_day_proxy",
+      "horizon_weeks": 13,
+      "scope": "low_frequency_sparse",
+      "wins_vs_MA4_proxy": 4,
+      "paired_ci_high_vs_MA4_proxy": 0.4465114804,
+      "wins_vs_Naive": 6,
+      "paired_ci_high_vs_Naive": 1.2486516309,
+      "pxq_value_supported": false
+    }
+  ],
+  "historical_origin6_is_independent_holdout": false,
+  "inventory_or_profit_claims_supported": false
+}

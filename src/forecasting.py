@@ -65,6 +65,40 @@ def forecast_ma4(values: np.ndarray, horizon: int) -> np.ndarray:
     return np.repeat(max(0.0, float(np.mean(y[-4:]))), horizon)
 
 
+def forecast_pxq(
+    values: np.ndarray,
+    horizon: int,
+    *,
+    occurrence_lookback_weeks: int | None = None,
+) -> tuple[np.ndarray, dict[str, float]]:
+    """Forecast a constant weekly rate using the frozen p-times-q decomposition.
+
+    ``p`` is the positive-week share in the most recent lookback window and
+    ``q`` is the mean positive demand over the complete visible training
+    segment.  No shrinkage, clipping beyond non-negativity, or rounding is
+    applied.
+    """
+    y = np.asarray(values, dtype=float)
+    lookback = int(occurrence_lookback_weeks or horizon)
+    if lookback <= 0 or horizon <= 0:
+        raise ValueError("PXQ horizon and lookback must be positive")
+    if len(y) < lookback or not np.isfinite(y).all() or np.any(y < 0):
+        raise ValueError("PXQ requires a finite non-negative segment covering the lookback")
+    positive = y[y > 0]
+    if len(positive) == 0:
+        raise ValueError("PXQ requires at least one positive demand week")
+    p_hat = float(np.mean(y[-lookback:] > 0))
+    q_hat = float(np.mean(positive))
+    weekly_rate = p_hat * q_hat
+    return np.repeat(weekly_rate, horizon), {
+        "pxq_p_hat": p_hat,
+        "pxq_q_hat": q_hat,
+        "pxq_weekly_rate": weekly_rate,
+        "pxq_lookback_weeks": float(lookback),
+        "pxq_training_positive_weeks": float(len(positive)),
+    }
+
+
 def forecast_ses(values: np.ndarray, horizon: int) -> tuple[np.ndarray, SESFit]:
     fit = fit_ses(np.asarray(values, dtype=float))
     return np.repeat(fit.level, horizon), fit
@@ -181,6 +215,8 @@ def forecast_core_models(
     calendar_anchor: pd.Timestamp,
     adida_aggregation_weeks: int = 2,
     include_sba: bool = False,
+    include_pxq: bool = False,
+    pxq_lookback_weeks: int | None = None,
 ) -> tuple[dict[str, np.ndarray], dict[str, float]]:
     values = np.asarray(train_values, dtype=float)
     forecasts: dict[str, np.ndarray] = {
@@ -190,7 +226,15 @@ def forecast_core_models(
     }
     ses_forecast, ses_fit = forecast_ses(values, horizon)
     forecasts["SES"] = ses_forecast
-    parameters = {"ses_alpha": ses_fit.alpha, "adida_ses_alpha": np.nan}
+    parameters = {
+        "ses_alpha": ses_fit.alpha,
+        "adida_ses_alpha": np.nan,
+        "pxq_p_hat": np.nan,
+        "pxq_q_hat": np.nan,
+        "pxq_weekly_rate": np.nan,
+        "pxq_lookback_weeks": np.nan,
+        "pxq_training_positive_weeks": np.nan,
+    }
     try:
         adida_forecast, adida_fit = forecast_adida(
             train_weeks,
@@ -205,6 +249,19 @@ def forecast_core_models(
         # Other core models remain evaluable when a newly observed SKU lacks
         # two complete aggregation blocks. Availability is reported upstream.
         pass
+    if include_pxq:
+        try:
+            pxq_forecast, pxq_parameters = forecast_pxq(
+                values,
+                horizon,
+                occurrence_lookback_weeks=pxq_lookback_weeks,
+            )
+            forecasts["PXQ"] = pxq_forecast
+            parameters.update(pxq_parameters)
+        except ValueError:
+            # Native coverage is retained for simpler models when PXQ lacks
+            # enough recent weeks or has no positive demand event.
+            pass
     if include_sba:
         parameters["sba_alpha"] = np.nan
         try:

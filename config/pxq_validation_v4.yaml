@@ -1,0 +1,82 @@
+project:
+  name: mba-thesis-analysis-unified-pxq
+  protocol_version: "4.0"
+  analysis_mode: retrospective_method_development
+  seed: 42
+  timezone: UTC
+
+input:
+  workbook: "01_原始数据/德国Amazon_SKU周度数据_原始合并版_未清洗 (1).xlsx"
+  metadata_columns: 8
+  sku_column: "SKU"
+  expected_sha256: "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6"
+  calendar:
+    week_start: monday
+    merge_same_iso_week_fragments: true
+    minimum_covered_days: 7
+
+cleaning_v2:
+  zero_run_min: 2
+  zero_run_max: 12
+  context_window_max: 12
+  minimum_positive_share: 0.75
+  minimum_positive_weeks_each_side: 3
+  probability_cutoff: 0.05
+  correct_leading_or_trailing_runs: false
+
+samples:
+  main_min_positive_weeks: 5
+
+clustering:
+  feature_names: [ADI, CV2, nonzero_mean, acf1]
+  algorithm: ward
+  k: 2
+
+forecast:
+  horizons:
+    - label: 30_day_proxy
+      weeks: 4
+      approximate_days: 28
+      origins: 6
+    - label: 60_day_proxy
+      weeks: 9
+      approximate_days: 63
+      origins: 6
+    - label: 90_day_proxy
+      weeks: 13
+      approximate_days: 91
+      origins: 6
+  primary_model: PXQ
+  comparison_models: [MA4_proxy, Naive, SES, ADIDA2]
+  value_baseline: Zero
+  adida_aggregation_weeks: 2
+  pxq:
+    occurrence_lookback: same_as_horizon
+    size_window: expanding_ending_contiguous_training_segment
+    positive_definition: strictly_greater_than_zero
+    smoothing: none
+    clipping: none
+    rounding: none
+
+evaluation:
+  common_models: [PXQ, MA4_proxy, Naive, SES, ADIDA2]
+  paired_bootstrap_repetitions: 1000
+  metrics:
+    - mean_mase
+    - median_mase
+    - mase_lt_1_share
+    - mae
+    - aggregate_wape
+    - bias
+    - horizon_total_abs_error
+    - horizon_total_wape
+    - underforecast_units
+    - overforecast_units
+  predictability_gate:
+    minimum_winning_origins: 4
+    required_baselines: [MA4_proxy, Naive]
+    paired_ci_upper_below_zero: true
+
+outputs:
+  root: outputs/pxq_validation_v4
+  report: reports/pxq_validation_v4.md
