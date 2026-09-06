@@ -15,6 +15,8 @@ def evaluate_forecast(actual: np.ndarray, forecast: np.ndarray, scale: float) ->
     absolute = np.abs(errors)
     actual_sum = float(np.sum(y))
     abs_error_sum = float(np.sum(absolute))
+    forecast_sum = float(np.sum(y_hat))
+    horizon_total_error = forecast_sum - actual_sum
     mase = float(np.mean(absolute) / scale) if np.isfinite(scale) and scale > 0 else np.nan
     return {
         "mase": mase,
@@ -23,9 +25,12 @@ def evaluate_forecast(actual: np.ndarray, forecast: np.ndarray, scale: float) ->
         "bias_units": float(np.mean(errors)),
         "bias_ratio": float(np.sum(errors) / actual_sum) if actual_sum > 0 else np.nan,
         "actual_sum": actual_sum,
-        "forecast_sum": float(np.sum(y_hat)),
+        "forecast_sum": forecast_sum,
         "abs_error_sum": abs_error_sum,
         "signed_error_sum": float(np.sum(errors)),
+        "horizon_total_abs_error": abs(horizon_total_error),
+        "underforecast_units": max(-horizon_total_error, 0.0),
+        "overforecast_units": max(horizon_total_error, 0.0),
     }
 
 
@@ -52,6 +57,13 @@ def summarize_predictions(predictions: pd.DataFrame, group_columns: list[str]) -
                 "aggregate_bias": float(group["signed_error_sum"].sum() / actual_sum)
                 if actual_sum > 0
                 else np.nan,
+                "horizon_total_wape": float(
+                    group["horizon_total_abs_error"].sum() / actual_sum
+                )
+                if actual_sum > 0
+                else np.nan,
+                "underforecast_units": float(group["underforecast_units"].sum()),
+                "overforecast_units": float(group["overforecast_units"].sum()),
                 "actual_volume": float(actual_sum),
             }
         )
@@ -100,15 +112,64 @@ def paired_bootstrap_difference(
     }
 
 
+def paired_bootstrap_loss_difference(
+    predictions: pd.DataFrame,
+    model: str,
+    baseline: str,
+    *,
+    loss_column: str,
+    repetitions: int,
+    seed: int,
+) -> dict[str, Any]:
+    """Bootstrap a paired SKU-level mean loss difference across origins."""
+    pivot = (
+        predictions.loc[predictions["model"].isin([model, baseline])]
+        .groupby(["sku", "model"], as_index=False)[loss_column]
+        .mean()
+        .pivot(index="sku", columns="model", values=loss_column)
+    )
+    if model not in pivot.columns or baseline not in pivot.columns:
+        pivot = pivot.iloc[0:0]
+    else:
+        pivot = pivot.dropna(subset=[model, baseline])
+    if pivot.empty:
+        return {
+            "model": model,
+            "baseline": baseline,
+            "loss": loss_column,
+            "n_skus": 0,
+            "mean_difference": np.nan,
+            "median_difference": np.nan,
+            "ci_low": np.nan,
+            "ci_high": np.nan,
+        }
+    differences = (pivot[model] - pivot[baseline]).to_numpy(dtype=float)
+    rng = np.random.default_rng(seed)
+    boot = np.empty(repetitions, dtype=float)
+    for idx in range(repetitions):
+        boot[idx] = float(np.mean(rng.choice(differences, size=len(differences), replace=True)))
+    return {
+        "model": model,
+        "baseline": baseline,
+        "loss": loss_column,
+        "n_skus": int(len(differences)),
+        "mean_difference": float(np.mean(differences)),
+        "median_difference": float(np.median(differences)),
+        "ci_low": float(np.quantile(boot, 0.025)),
+        "ci_high": float(np.quantile(boot, 0.975)),
+    }
+
+
 def model_wins(predictions: pd.DataFrame, loss_column: str = "mae") -> pd.DataFrame:
     """Count per-SKU and per-origin winners, breaking ties by maintenance order."""
     priority = {
         "MA4_proxy": 0,
         "Naive": 1,
-        "SES": 2,
-        "ADIDA2": 3,
-        "SBA": 4,
-        "Zero": 5,
+        "PXQ": 2,
+        "SES": 3,
+        "ADIDA2": 4,
+        "SBA": 5,
+        "Zero": 6,
     }
     frame = predictions.copy()
     frame["priority"] = frame["model"].map(priority).fillna(99)

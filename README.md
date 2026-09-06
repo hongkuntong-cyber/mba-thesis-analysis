@@ -6,6 +6,20 @@
 
 ## 当前结论
 
+- V4.2 检验了“最近52周直接周期频率＋同簇可信度收缩＋条件周期需求量”的统一
+  两部式方案。三个周期的聚类信息增量、V4.1概率替代和数量价值门槛均未通过；
+  主方案概率Brier为0.204/0.229/0.266，期望量WAPE为0.794/0.822/0.836。
+  主要失败来自低信息层发生概率被低估26.6–38.2个百分点。因此当前保留聚类的
+  管理分层作用，不使用簇均值校准概率，也不以新两部式期望量替代MA4_proxy。
+- V4.1 单独验证了28/63/91天代理内“至少发生一次需求”的概率。近期周发生率按
+  独立周假设换算后的Brier为0.209/0.206/0.211，三周期均有较强区分力，但平均
+  低估实际发生率6.0–7.6个百分点，且0概率组仍有约32%–38%实际发生需求。因此
+  当前只能称风险评分，不能称已校准概率，也不能用于自动补货阈值。
+- V4.0 已将“不同簇绑定不同模型池”改为“聚类只负责预测管理分层”；p×q、
+  MA4_proxy、Naive、SES和ADIDA2在所有可评价SKU上统一比较。
+- p×q在4/9/13周共同样本的周期总量WAPE为0.6749/0.6550/0.7035；各周期总量
+  最优模型分别为SES/p×q/MA4_proxy。预冻结的p×q替代门槛在全体、两个簇及
+  低信息层级均未通过，因此暂不替代MA4_proxy，只作为周期总量影子估计。
 - 最新 V3.0 业务导向特征筛选枚举了固定包含 `ADI + CV2` 的 64 个组合；建议完整期间主聚类继续使用 `ADI + CV2 + nonzero_mean + acf1`，Ward `K=2`，主样本 N=197。
 - V3.0 的第二个 Pareto 候选为 `ADI + CV2 + peak_ratio`，因重抽样、样本门槛和算法一致性更弱，仅保留为敏感性对照。
 - `K=3` 未通过预定稳定性、Raw/V2 一致性和独立画像条件，因此 SBA/TSB 未进入正式模型池。
@@ -72,16 +86,41 @@ python -m src.validate_forecast_pool_v2
 python -m src.business_feature_pipeline --config config/analysis_business_features.yaml
 python -m src.business_feature_diagnostics --config config/analysis_business_features.yaml
 python -m src.business_feature_plots --output-root outputs/business_features_v3
-python -m src.validate_business_features --config config/analysis_business_features.yaml
 ```
 
-也可以通过论文研究 Agent 的单一入口执行。默认只验证现有正式输出；`full`
-会严格按上述冻结顺序重跑，并在任一门禁失败时立即停止：
+运行 V4.0 统一p×q三周期历史验证与独立校验：
 
 ```bash
-python -m src.research_agent --mode validate
-python -m src.research_agent --mode full
+python -m src.pxq_validation_v4 --config config/pxq_validation_v4.yaml
+python -m src.validate_pxq_v4 --config config/pxq_validation_v4.yaml
 ```
+
+V4.0协议为`protocol/amendment_v4.0_unified_pxq_validation.md`，报告为
+`reports/pxq_validation_v4.md`。4/9/13周只是28/63/91天代理；所有结果属于
+回顾性方法开发，不是新增数据确认。
+
+运行 V4.1 需求发生概率验证、可靠性图和独立校验：
+
+```bash
+python -m src.pxq_probability_v4_1 --config config/pxq_probability_v4_1.yaml
+python -m src.pxq_probability_plots_v4_1 --output-root outputs/pxq_probability_v4_1
+python -m src.validate_pxq_probability_v4_1 --config config/pxq_probability_v4_1.yaml
+```
+
+V4.1协议为`protocol/amendment_v4.1_occurrence_probability_validation.md`，报告为
+`reports/pxq_probability_v4_1.md`。它复用V4.0的起点、簇标签和实际周期总量，
+没有重跑五个数量模型；结果仍属于回顾性方法开发。
+
+运行 V4.2 簇级可信度收缩两部式验证与独立校验：
+
+```bash
+python -m src.pxq_two_part_v4_2 --config config/pxq_two_part_v4_2.yaml
+python -m src.validate_pxq_two_part_v4_2 --config config/pxq_two_part_v4_2.yaml
+```
+
+V4.2协议为`protocol/amendment_v4.2_cluster_shrunk_two_part.md`，报告为
+`reports/pxq_two_part_v4_2.md`。它只新增最近52周的周期统计和可信度收缩，既有
+聚类、概率及数量模型全部复用，未重新运行；结果仍属于回顾性方法开发。
 
 V3.0 正式运行前冻结的协议、字典和证据注册表分别为：
 

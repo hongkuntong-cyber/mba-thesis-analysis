@@ -1,0 +1,176 @@
+{
+  "valid": true,
+  "protocol_version": "4.2",
+  "checks_passed": 16,
+  "checks_total": 16,
+  "checks": [
+    {
+      "check": "no_partial_output_files_remain",
+      "passed": true,
+      "details": {
+        "partial": []
+      }
+    },
+    {
+      "check": "required_outputs_and_report_exist",
+      "passed": true,
+      "details": {
+        "missing": [],
+        "report_exists": true
+      }
+    },
+    {
+      "check": "raw_sha256_matches_protocol",
+      "passed": true,
+      "details": {
+        "actual": "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6",
+        "expected": "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6"
+      }
+    },
+    {
+      "check": "dependencies_and_retrospective_boundary_are_explicit",
+      "passed": true,
+      "details": {
+        "v4": "4.0",
+        "v4_1": "4.1",
+        "current": "4.2",
+        "confirmatory": false
+      }
+    },
+    {
+      "check": "six_frozen_nonoverlapping_origins_per_horizon",
+      "passed": true,
+      "details": {
+        "30_day_proxy": {
+          "origins": [
+            "2026-02-16",
+            "2026-03-16",
+            "2026-04-13",
+            "2026-05-11",
+            "2026-06-08",
+            "2026-07-06"
+          ],
+          "passed": true
+        },
+        "60_day_proxy": {
+          "origins": [
+            "2025-07-21",
+            "2025-09-22",
+            "2025-11-24",
+            "2026-01-26",
+            "2026-03-30",
+            "2026-06-01"
+          ],
+          "passed": true
+        },
+        "90_day_proxy": {
+          "origins": [
+            "2025-02-03",
+            "2025-05-05",
+            "2025-08-04",
+            "2025-11-03",
+            "2026-02-02",
+            "2026-05-04"
+          ],
+          "passed": true
+        }
+      }
+    },
+    {
+      "check": "fixed_52_week_nonoverlapping_block_counts_reconcile",
+      "passed": true,
+      "details": {
+        "lookback_weeks": 52,
+        "component_rows": 2745,
+        "zero_own_block_rows": 47
+      }
+    },
+    {
+      "check": "targets_and_row_losses_reconcile",
+      "passed": true,
+      "details": {
+        "target": true,
+        "brier": true,
+        "quantity_absolute_error": true
+      }
+    },
+    {
+      "check": "leave_one_sku_out_peer_totals_reconcile",
+      "passed": true,
+      "details": {
+        "leave_one_sku_out": true
+      }
+    },
+    {
+      "check": "frozen_shrinkage_and_two_part_identities_reconcile",
+      "passed": true,
+      "details": {
+        "strengths": [
+          4,
+          1,
+          8
+        ]
+      }
+    },
+    {
+      "check": "predictions_have_valid_bounds_and_no_invented_weekly_mase",
+      "passed": true,
+      "details": {
+        "bounds": true,
+        "new_method_mase_is_missing": true
+      }
+    },
+    {
+      "check": "v4_and_v4_1_predictions_are_reused_exactly",
+      "passed": true,
+      "details": {
+        "probability_rows": 2698,
+        "quantity_rows": 13212
+      }
+    },
+    {
+      "check": "published_common_sample_summaries_reconcile",
+      "passed": true,
+      "details": {
+        "probability_common_keys": 2698,
+        "quantity_common_keys": 2279
+      }
+    },
+    {
+      "check": "reliability_bins_cover_probability_common_sample",
+      "passed": true,
+      "details": {
+        "expected_rows": 16188,
+        "observed_rows": 16188
+      }
+    },
+    {
+      "check": "paired_and_origin_comparisons_are_complete",
+      "passed": true,
+      "details": {
+        "paired_probability_rows": 15,
+        "paired_quantity_rows": 21,
+        "origin_rows": 216
+      }
+    },
+    {
+      "check": "all_frozen_value_gates_are_reported",
+      "passed": true,
+      "details": {
+        "gate_counts": {
+          "cluster_information_value": 3,
+          "expected_quantity_value": 3,
+          "probability_replacement_value": 3
+        }
+      }
+    },
+    {
+      "check": "outcome_counts_reconcile",
+      "passed": true,
+      "details": {
+        "probability_rows": 16376,
+        "quantity_rows": 21400
+      }
+    }
+  ]
+}

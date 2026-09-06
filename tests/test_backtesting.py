@@ -32,11 +32,24 @@ class BacktestingTests(unittest.TestCase):
             cleaning_parameters={},
             calendar_anchor=pd.Timestamp("2024-01-01"),
             adida_aggregation_weeks=2,
+            include_pxq=True,
+            pxq_lookback_weeks=8,
         )
         left_result = run_backtest(left, **kwargs)
         right_result = run_backtest(right, **kwargs)
         pd.testing.assert_frame_equal(left_result.assignments, right_result.assignments)
-        keys = ["origin_index", "sku", "cluster", "model", "forecast_sum", "ses_alpha", "adida_ses_alpha"]
+        keys = [
+            "origin_index",
+            "sku",
+            "cluster",
+            "model",
+            "forecast_sum",
+            "ses_alpha",
+            "adida_ses_alpha",
+            "pxq_p_hat",
+            "pxq_q_hat",
+            "pxq_weekly_rate",
+        ]
         pd.testing.assert_frame_equal(
             left_result.predictions[keys].reset_index(drop=True),
             right_result.predictions[keys].reset_index(drop=True),

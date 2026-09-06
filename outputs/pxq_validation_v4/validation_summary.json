@@ -1,0 +1,154 @@
+{
+  "valid": true,
+  "protocol_version": "4.0",
+  "checks_passed": 11,
+  "checks_total": 11,
+  "checks": [
+    {
+      "check": "no_partial_output_files_remain",
+      "passed": true,
+      "detail": {
+        "partial_outputs": []
+      }
+    },
+    {
+      "check": "required_outputs_exist",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "check": "raw_sha256_matches_protocol",
+      "passed": true,
+      "detail": {
+        "actual": "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6",
+        "expected": "ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6"
+      }
+    },
+    {
+      "check": "prediction_detail_is_complete",
+      "passed": true,
+      "detail": {
+        "observed_rows": 15957,
+        "expected_rows": 15957,
+        "observed_horizons": [
+          "30_day_proxy",
+          "60_day_proxy",
+          "90_day_proxy"
+        ],
+        "expected_horizons": [
+          "30_day_proxy",
+          "60_day_proxy",
+          "90_day_proxy"
+        ]
+      }
+    },
+    {
+      "check": "only_frozen_models_present",
+      "passed": true,
+      "detail": {
+        "observed": [
+          "ADIDA2",
+          "MA4_proxy",
+          "Naive",
+          "PXQ",
+          "SES",
+          "Zero"
+        ],
+        "allowed": [
+          "ADIDA2",
+          "MA4_proxy",
+          "Naive",
+          "PXQ",
+          "SES",
+          "Zero"
+        ]
+      }
+    },
+    {
+      "check": "six_nonoverlapping_origins_per_horizon",
+      "passed": true,
+      "detail": {
+        "30_day_proxy": {
+          "rows": 6,
+          "origins": [
+            "2026-02-16",
+            "2026-03-16",
+            "2026-04-13",
+            "2026-05-11",
+            "2026-06-08",
+            "2026-07-06"
+          ],
+          "passed": true
+        },
+        "60_day_proxy": {
+          "rows": 6,
+          "origins": [
+            "2025-07-21",
+            "2025-09-22",
+            "2025-11-24",
+            "2026-01-26",
+            "2026-03-30",
+            "2026-06-01"
+          ],
+          "passed": true
+        },
+        "90_day_proxy": {
+          "rows": 6,
+          "origins": [
+            "2025-02-03",
+            "2025-05-05",
+            "2025-08-04",
+            "2025-11-03",
+            "2026-02-02",
+            "2026-05-04"
+          ],
+          "passed": true
+        }
+      }
+    },
+    {
+      "check": "pxq_frozen_formula_reconciles",
+      "passed": true,
+      "detail": {
+        "p_in_unit_interval": true,
+        "q_positive_finite": true,
+        "lookback_equals_horizon": true,
+        "weekly_rate_equals_p_times_q": true,
+        "forecast_sum_equals_h_times_p_times_q": true
+      }
+    },
+    {
+      "check": "horizon_total_metrics_reconcile",
+      "passed": true,
+      "detail": {
+        "rows": 15957
+      }
+    },
+    {
+      "check": "five_model_common_samples_are_exact",
+      "passed": true,
+      "detail": {
+        "common_keys": 2279,
+        "common_mase_keys": 2279,
+        "common_rows_are_prediction_subset": true
+      }
+    },
+    {
+      "check": "published_common_summary_reconciles",
+      "passed": true,
+      "detail": {
+        "rows": 15
+      }
+    },
+    {
+      "check": "paired_and_gate_tables_cover_all_frozen_scopes",
+      "passed": true,
+      "detail": {
+        "paired_rows": 96,
+        "gate_rows": 12
+      }
+    }
+  ]
+}
