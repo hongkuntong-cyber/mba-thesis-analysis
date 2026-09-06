@@ -6,6 +6,11 @@
 
 ## 当前结论
 
+- V4.2 检验了“最近52周直接周期频率＋同簇可信度收缩＋条件周期需求量”的统一
+  两部式方案。三个周期的聚类信息增量、V4.1概率替代和数量价值门槛均未通过；
+  主方案概率Brier为0.204/0.229/0.266，期望量WAPE为0.794/0.822/0.836。
+  主要失败来自低信息层发生概率被低估26.6–38.2个百分点。因此当前保留聚类的
+  管理分层作用，不使用簇均值校准概率，也不以新两部式期望量替代MA4_proxy。
 - V4.1 单独验证了28/63/91天代理内“至少发生一次需求”的概率。近期周发生率按
   独立周假设换算后的Brier为0.209/0.206/0.211，三周期均有较强区分力，但平均
   低估实际发生率6.0–7.6个百分点，且0概率组仍有约32%–38%实际发生需求。因此
@@ -105,6 +110,17 @@ python -m src.validate_pxq_probability_v4_1 --config config/pxq_probability_v4_1
 V4.1协议为`protocol/amendment_v4.1_occurrence_probability_validation.md`，报告为
 `reports/pxq_probability_v4_1.md`。它复用V4.0的起点、簇标签和实际周期总量，
 没有重跑五个数量模型；结果仍属于回顾性方法开发。
+
+运行 V4.2 簇级可信度收缩两部式验证与独立校验：
+
+```bash
+python -m src.pxq_two_part_v4_2 --config config/pxq_two_part_v4_2.yaml
+python -m src.validate_pxq_two_part_v4_2 --config config/pxq_two_part_v4_2.yaml
+```
+
+V4.2协议为`protocol/amendment_v4.2_cluster_shrunk_two_part.md`，报告为
+`reports/pxq_two_part_v4_2.md`。它只新增最近52周的周期统计和可信度收缩，既有
+聚类、概率及数量模型全部复用，未重新运行；结果仍属于回顾性方法开发。
 
 V3.0 正式运行前冻结的协议、字典和证据注册表分别为：
 

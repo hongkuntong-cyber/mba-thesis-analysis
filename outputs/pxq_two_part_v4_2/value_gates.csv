@@ -1,0 +1,10 @@
+gate_type,horizon_label,horizon_weeks,primary_method,baseline,winning_origins,minimum_winning_origins,paired_ci_high,calibration_gap,maximum_absolute_calibration_gap,no_exact_zero_or_one,origin_gate_passed,paired_gate_passed,calibration_gate_passed,wape_gate_passed,gate_passed
+cluster_information_value,30_day_proxy,4,ProfileShrink_L4,EnterpriseShrink_L4,2,4,0.02165116348737584,-0.05314176686071881,0.05,True,False,False,False,,False
+probability_replacement_value,30_day_proxy,4,ProfileShrink_L4,PXQ_independence,3,4,0.021399638544048617,-0.05314176686071881,0.05,True,False,False,False,,False
+expected_quantity_value,30_day_proxy,4,ProfileShrink_L4_expected,MA4_proxy+Naive,MA4_proxy=1;Naive=4,4,MA4_proxy=1.842262073;Naive=1.584796678,,,,False,False,,False,False
+cluster_information_value,60_day_proxy,9,ProfileShrink_L4,EnterpriseShrink_L4,1,4,0.046235731784166095,-0.11327797477848278,0.05,True,False,False,False,,False
+probability_replacement_value,60_day_proxy,9,ProfileShrink_L4,PXQ_independence,3,4,0.04465726352050055,-0.11327797477848278,0.05,True,False,False,False,,False
+expected_quantity_value,60_day_proxy,9,ProfileShrink_L4_expected,MA4_proxy+Naive,MA4_proxy=1;Naive=3,4,MA4_proxy=5.418160689;Naive=3.609673313,,,,False,False,,False,False
+cluster_information_value,90_day_proxy,13,ProfileShrink_L4,EnterpriseShrink_L4,1,4,0.05107193447912563,-0.19268583389459037,0.05,True,False,False,False,,False
+probability_replacement_value,90_day_proxy,13,ProfileShrink_L4,PXQ_independence,2,4,0.03437992162975891,-0.19268583389459037,0.05,True,False,False,False,,False
+expected_quantity_value,90_day_proxy,13,ProfileShrink_L4_expected,MA4_proxy+Naive,MA4_proxy=1;Naive=4,4,MA4_proxy=5.174308848;Naive=1.877101858,,,,False,False,,False,False
