@@ -1,0 +1,19 @@
+{
+  "outputs/pxq_fair_v4_4/cohort_membership.csv": "6baf0bf4937ffb582ba8d160804b74df937e7fe129ff0bac805d36a2db24f83a",
+  "outputs/pxq_fair_v4_4/components.csv": "c79634df371c9f47a8593d721ca730f26840f744b518afdbc14cc2d93faa7ad1",
+  "outputs/pxq_fair_v4_4/coverage_summary.csv": "807fd5050299f9219eb9111dfc8c269bc2518018d7d62a34939e74837cb040ac",
+  "outputs/pxq_fair_v4_4/old_calendar_quantity_comparisons.csv": "d4361d5986fd4292b5b33410dec2a7bcf1907ec58aa31f040a60e8508778b329",
+  "outputs/pxq_fair_v4_4/origin_audit.csv": "e6519a513048e3e723489b09d406b07b058c68f7faddc417698fb8b455ff2cc3",
+  "outputs/pxq_fair_v4_4/paired_details.csv": "55e8728838c22bf6e53a75b79404900d852b1219b550b86358be48d198f5cd66",
+  "outputs/pxq_fair_v4_4/paired_probability.csv": "9f75c7e7e10f38c89040c81ee2d6416d3cff1171a9da84a96f400cd0065fbb31",
+  "outputs/pxq_fair_v4_4/probability_by_dynamic_layer.csv": "3b0a12ed8c7d6dd74d781edf0496c2d5e578fb582856f85f2342e609accb1171",
+  "outputs/pxq_fair_v4_4/probability_predictions.csv": "f79078509ebb28a2b3b9f819d2f84baae6e349b009e84178e4d7c861f10f7cb6",
+  "outputs/pxq_fair_v4_4/probability_summary.csv": "87b8d779ca1fea58ef6b940ce1d80203dc83ff3cf9c22e4b889605822f2ad0e3",
+  "outputs/pxq_fair_v4_4/quantity_by_layer.csv": "4057dff4911386ae581312035c10d44e074f03c37905137380be3aa6f76f0415",
+  "outputs/pxq_fair_v4_4/quantity_comparisons.csv": "d25ab9c9714c7933c4299328320ee995aff58affa954dc2b08debb224924457c",
+  "outputs/pxq_fair_v4_4/quantity_predictions.csv": "d5f348286e485eca445929aedabcfa145b5a15d2795add1958718d090c36ad10",
+  "outputs/pxq_fair_v4_4/reliability_bins.csv": "69f22aa6adda968c97d25260c48343ef594f84b0669939a79362b555a02b0c82",
+  "outputs/pxq_fair_v4_4/sku_comparisons.csv": "cc61c16e4f28a350dd1a7e6cade171e03cbecfe764304d84b386e60566844b1a",
+  "outputs/pxq_fair_v4_4/sku_coverage.csv": "00b7615bdd5e0e004aa4d3ca3a45c4959903383a849aef93ff80b33f2c6ff295",
+  "outputs/pxq_fair_v4_4/universe_coverage.csv": "f020b881dd32a27b669d2abb4217085f988c6305554821ef5d33f7391c221e1a"
+}

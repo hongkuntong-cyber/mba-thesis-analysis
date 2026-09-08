@@ -1,0 +1,24 @@
+version: '4.4'
+analysis_mode: retrospective_supplementary
+seed: 42
+bootstrap_repetitions: 1000
+base_commit: 3ff25dfd4f8dcc88e5ceb49deb85f99f45550691
+input_workbook: '01_原始数据/德国Amazon_SKU周度数据_原始合并版_未清洗 (1).xlsx'
+input_sha256: ece008d42c9dd6ea11e4a0c8f6d828c2cb037df1d837ea233587f115491786b6
+prior_packet: inputs/prior_v4_3/pxq_v4_3_results.zip
+cohort_file: outputs/business_features_v3/clustering/recommended_main_cluster_assignments.csv
+cohort_primary: 1
+expected_primary_skus: 120
+expected_secondary_skus: 77
+horizons_weeks: [4, 9, 13]
+origins_per_sku: 6
+lookback_weeks: 52
+minimum_ma4_training_weeks: 4
+primary_method: BlockFrequencyMean
+baseline_method: MA4_proxy
+quantity_methods: [BlockFrequencyMean, MA4_proxy, MatchedHistoryMean, LaplaceMean, LegacyPXQ, Naive]
+probability_methods: [BlockFrequency, Laplace, EnterpriseFrequency]
+features: [ADI, CV2, nonzero_mean, acf1]
+k: 2
+main_min_positive_weeks: 5
+output_root: outputs/pxq_fair_v4_4

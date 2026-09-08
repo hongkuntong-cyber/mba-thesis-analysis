@@ -1,0 +1,26 @@
+{
+  "passed": 17,
+  "failed": 0,
+  "checks": {
+    "cohort_120_and_77": true,
+    "all_planned_cases_preserved": true,
+    "all_skus_have_18_plan_rows": true,
+    "unique_prediction_keys": true,
+    "eligible_set_exact": true,
+    "training_before_origin": true,
+    "training_contiguous_length": true,
+    "source_fingerprint": true,
+    "all_forecast_formula_and_period_scales": true,
+    "all_raw_future_targets_independently_reconstructed": true,
+    "probability_and_matched_mean_identities": true,
+    "all_pair_intersections_and_macro_denominators": true,
+    "all_bootstrap_intervals_independently_recomputed": true,
+    "ma4_not_probability_method": true,
+    "no_epsilon_for_zero_scale": true,
+    "missing_conditional_quantity_preserved": true,
+    "all_output_hashes": true
+  },
+  "validated_cases": 3290,
+  "validated_forecast_rows": 23030,
+  "validated_summary_rows": 144
+}

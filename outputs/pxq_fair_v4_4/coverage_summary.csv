@@ -1,0 +1,7 @@
+cohort,horizon_weeks,planned_skus,planned_cases,ma4_skus,ma4_cases,probability_skus,probability_cases,pure_quantity_skus,pure_quantity_cases,mase_skus,mase_cases,no_periods,no_positive_periods,scale_insufficient,scale_zero
+active120,4,120,720,120,720,120,720,120,664,120,651,0,56,24,45
+active120,9,120,720,120,624,120,624,118,562,118,544,0,62,24,56
+active120,13,120,720,120,624,120,600,115,464,96,445,24,136,48,131
+sparse77,4,77,462,77,462,77,462,77,416,77,413,0,46,8,41
+sparse77,9,77,462,77,430,77,430,75,355,75,352,0,75,8,70
+sparse77,13,77,462,77,430,77,422,73,276,69,272,8,146,16,142
