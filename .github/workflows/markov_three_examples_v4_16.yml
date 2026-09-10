@@ -1,0 +1,37 @@
+name: markov-three-examples-v4-16
+
+on:
+  push:
+    branches:
+      - analysis/markov-v4-16-exploratory
+    paths:
+      - 'src/markov_three_examples_v4_16.py'
+      - '.github/workflows/markov_three_examples_v4_16.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare-three:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install tabulate
+      - name: Run three-SKU comparison
+        run: python -m src.markov_three_examples_v4_16
+      - name: Upload comparison
+        uses: actions/upload-artifact@v4
+        with:
+          name: markov-three-examples-v4-16
+          path: outputs/markov_v4_16_three_examples/
+          retention-days: 7
