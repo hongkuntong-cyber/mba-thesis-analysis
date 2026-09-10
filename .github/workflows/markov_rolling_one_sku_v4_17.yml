@@ -1,0 +1,30 @@
+name: markov-rolling-one-sku-v4-17
+on:
+  push:
+    branches: [analysis/markov-v4-16-exploratory]
+    paths:
+      - 'src/markov_rolling_one_sku_v4_17.py'
+      - '.github/workflows/markov_rolling_one_sku_v4_17.yml'
+  workflow_dispatch:
+jobs:
+  rolling-demo:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install tabulate
+      - name: Run rolling demonstration
+        run: python -m src.markov_rolling_one_sku_v4_17
+      - name: Upload output
+        uses: actions/upload-artifact@v4
+        with:
+          name: markov-rolling-one-sku-v4-17
+          path: outputs/markov_v4_17_rolling_one_sku/
+          retention-days: 7
