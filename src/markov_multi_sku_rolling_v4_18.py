@@ -60,12 +60,14 @@ def main():
     assert not loaded.audit['blockers']
     raw = loaded.weekly_complete.copy()
 
-    # Candidate universe from existing V4.4 evaluation output; do not use outcome fields.
     comp = pd.read_csv(COMP)
     candidates = sorted(comp.loc[(comp.horizon_weeks == 9) & (comp.tail_rank == 1), 'sku'].astype(str).unique())
 
-    # Build all training summaries at the first origin.
-    clean0 = apply_v2_cleaning(raw.loc[raw.week_start < START], **CLEAN_CFG)
+    # Cleaning depends only on origin, not SKU: compute once per origin and reuse.
+    origins = [START, START + pd.Timedelta(weeks=1)]
+    cleaned = {origin: apply_v2_cleaning(raw.loc[raw.week_start < origin], **CLEAN_CFG) for origin in origins}
+
+    clean0 = cleaned[START]
     stats=[]
     for sku in candidates:
         g = clean0.weekly.loc[clean0.weekly.sku.eq(sku)]
@@ -79,7 +81,6 @@ def main():
         stats.append({'sku':sku,'training_weeks':len(y),**s})
     stats = pd.DataFrame(stats)
 
-    # Select nearest to fixed target demand-frequency rates. No future outcomes used.
     chosen=[]; used=set()
     for label,target in zip(LABELS,TARGET_RATES):
         cand=stats.loc[~stats.sku.isin(used)].copy()
@@ -91,9 +92,8 @@ def main():
     raw_index = raw.pivot(index='week_start', columns='sku', values='sales')
     rows=[]
     for label,sku,base_rate in chosen:
-        for k in [0,1]:
-            origin=START+pd.Timedelta(weeks=k)
-            clean = apply_v2_cleaning(raw.loc[raw.week_start < origin], **CLEAN_CFG)
+        for k,origin in enumerate(origins):
+            clean = cleaned[origin]
             g=clean.weekly.loc[clean.weekly.sku.eq(sku)]
             seg=_ending_contiguous_training_segment(g,origin,'sales_v2')
             if len(seg)<4:
