@@ -1,0 +1,30 @@
+name: markov-rolling-fixed120-v4-19
+on:
+  push:
+    branches: [analysis/markov-v4-16-exploratory]
+    paths:
+      - 'src/markov_rolling_fixed120_v4_19.py'
+      - '.github/workflows/markov_rolling_fixed120_v4_19.yml'
+  workflow_dispatch:
+jobs:
+  fixed120-rolling:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+      - name: Run fixed120 weekly rolling backtest
+        run: python -m src.markov_rolling_fixed120_v4_19
+      - name: Upload output
+        uses: actions/upload-artifact@v4
+        with:
+          name: markov-rolling-fixed120-v4-19
+          path: outputs/markov_v4_19_fixed120_weekly_rolling/
+          retention-days: 7
